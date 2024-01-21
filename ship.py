@@ -28,27 +28,41 @@ class Ship:
         # so rect.midbottom "bottom center of image file"
         # and this is set to the "bottom middle of the screen rectangle itself"
         # thus, the image is int he middle of the screen at the bottom
-        self.rect.midbottom = self.screen_rect.midbottom
+        # self.rect.midbottom = self.screen_rect.midbottom # original line
+        self.rect.midleft = self.screen_rect.midleft # midleft didn't fill in so i don't know if this works
+        
         
         # store a float for the ship's exact horizontal position
-        self.x = float(self.rect.x)
+        # self.x = float(self.rect.x) # changing this y
+        self.y = float(self.rect.y)
         #  Movement flag; start with a ship that's not moving
-        self.moving_right = False
-        self.moving_left = False
+        # changing these two from left/right to top/bottom
+        #self.moving_right = False
+        #self.moving_left = False
+        self.moving_top = False
+        self.moving_bottom = False
         
     def update(self):
         """update the ship's position based ont he movement flags."""
         # Update the ship's x value, not the rect
-        #if self.moving_right:
-        if self.moving_right and self.rect.right < self.screen_rect.right: # right hand side is max x value - screen_rect.right
-            self.x += self.settings.ship_speed
-            #self.rect.x += 1
+        # must change these also to up/down and from x to y        
+        
+        
+        #if self.moving_right and self.rect.right < self.screen_rect.right: # right hand side is max x value - screen_rect.right
+        #    self.x += self.settings.ship_speed
+        if self.moving_top and self.rect.top < self.screen_rect.right:
+            self.y += self.settings.ship_speed
+            
         #if self.moving_left:
-        if self.moving_left and self.rect.left > 0: # left side is coord 0
-            self.x -= self.settings.ship_speed
-            #self.rect.x -= 1
+        #if self.moving_left and self.rect.left > 0: # left side is coord 0
+        #    self.x -= self.settings.ship_speed
+        if self.moving_bottom and self.rect.bottom > 0:
+            self.y -= self.settings.ship_speed
+            
         # update rect object from self.x
-        self.rect.x = self.x
+        #self.rect.x = self.x
+        
+        self.rect.y = self.y
 
         
     
