@@ -43,21 +43,27 @@ class Ship:
         self.moving_bottom = False
         
     def update(self):
-        """update the ship's position based ont he movement flags."""
+        """update the ship's position based on the movement flags."""
         # Update the ship's x value, not the rect
         # must change these also to up/down and from x to y        
         
         
         #if self.moving_right and self.rect.right < self.screen_rect.right: # right hand side is max x value - screen_rect.right
         #    self.x += self.settings.ship_speed
-        if self.moving_top and self.rect.top < self.screen_rect.right:
-            self.y += self.settings.ship_speed
+        # I think i got this backwords as i'm testing top vs 0
+        #if self.moving_top and self.rect.top < self.screen_rect.top:
+        #    self.y += self.settings.ship_speed
+        if self.moving_top and self.rect.top > self.screen_rect.top:
+            self.y -= self.settings.ship_speed
             
         #if self.moving_left:
         #if self.moving_left and self.rect.left > 0: # left side is coord 0
         #    self.x -= self.settings.ship_speed
-        if self.moving_bottom and self.rect.bottom > 0:
-            self.y -= self.settings.ship_speed
+        # I think i got this backwords as i'm testing bottom vs window width, which is furthest from 0...rect bottom
+        #if self.moving_bottom and self.rect.bottom > 0:
+        #    self.y -= self.settings.ship_speed
+        if self.moving_bottom and self.rect.bottom < self.screen_rect.bottom:
+            self.y += self.settings.ship_speed
             
         # update rect object from self.x
         #self.rect.x = self.x
