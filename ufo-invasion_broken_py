@@ -4,9 +4,7 @@ import sys, pygame
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
-from alien import Alien
-
-# import pygame
+from alien import Alien # modification for chapter 13 - bringing in the alien.py stuff
 
 class AlienInvasion: 
     # Overall class to manage game assets and behavior 
@@ -22,17 +20,14 @@ class AlienInvasion:
             self.settings.screen_height
             )
         )
-        
-        
-        
-        
+
         #self.screen = pygame.display.set_mode((1200, 800))
         pygame.display.set_caption("UFO Invasion")
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group() # create a group that holds the bullets 
-        self.aliens = pygame.sprite.Group()
-        
-        self._create_fleet()
+        self.aliens = pygame.sprite.Group() # brought in for chapter 13 for the alien stuff
+
+        self._create_fleet()  # brought in for chapter 13 for the alien stuff - helper method for lots of aliens
         # set background color
         #self.bg_color = (230,230,230)
         
@@ -112,39 +107,65 @@ class AlienInvasion:
             #pass
             if bullet.rect.left >= self.settings.screen_width:
                 self.bullets.remove(bullet)
-                
-    def _create_fleet(self):
-        """create fleet of aliens"""
-        # make an alien
-        alien = Alien(self)
-        alien_height = alien.rect.height
-        
-        current_y = alien_height
-        while current_y < (self.settings.screen_height + 2 * alien_height):
-            new_alien = Alien(self)
-            new_alien.y = current_y
-            new_alien.rect.y = current_y
-            self.aliens.add(new_alien)
-            current_y = current_y + 2 * alien_height
-            self.aliens.add(alien)
-            print(len(self.aliens))
-        #pass
-
-#    def _create_fleet(self):
-        """create fleet of aliens"""
-#        # make an alien
-#        alien = Alien(self)
-#        self.aliens.add(alien)
-        #pass
     
+    
+    #def _create_fleet(self):  # brought in for chapter 13 for the alien stuff - called above rungame method
+        """create the fleet of aliens"""
+
+
+        # create an alien an dkeep adding aliens until there's no room left
+        # space between aliens is one alien width
+        #alien = Alien(self)
+        # alien_width = alien.rect.width # width version/working
+        #alien_height = alien.rect.height
+        #current_y = alien_height
+        #while current_y < (self.settings.screen_height - 2 * alien_height): # heigh version of code that hopefuly works
+            #new_alien = Alien(self)
+            #new_alien.y = current_y
+            #new_alien.rect.y = current_y
+            #self.aliens.add(new_alien)
+            #current_y += 2 * alien_height
+            #self.aliens.add(alien)
+
+''' this is the working horizontal version for reference'''        
+        #alien = Alien(self)
+        #current_x = alien_width
+        #alien_width = alien.rect.width # width version/working
+        #while current_x < (self.settings.screen_width - 2 * alien_width):
+        #  new_alien = Alien(self)
+        #new_alien.x = current_x
+        #new_alien.rect.x = current_x
+        #self.aliens.add(new_alien)
+        #current_x += 2 * alien_width           
+        #self.aliens.add(alien) 
+        #pass        
+        
+        
+        
+        #self.aliens.add(alien)
+ 
     def _update_screen(self):
         """update images on screen and flip to the new screen"""
         self.screen.fill(self.settings.bg_color) # 230,230,230 = light gray
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.ship.blitme()
-        self.aliens.draw(self.screen)
-
+                    
+            # Make the most recently drawn screen visible
+        pygame.display.flip()
+    
+#    def _update_screen(self):
+#        """update images on screen and flip to the new screen"""
+#        self.screen.fill(self.settings.bg_color) # 230,230,230 = light gray
+#        for bullet in self.bullets.sprites():
+#            bullet.draw_bullet()
+#        self.ship.blitme()
+        #self.screen.fill(self.settings.bg_color) # 230,230,230 = light gray
+        #for bullet in self.bullets.sprites():
+        #    bullet.draw_bullet()
+        #self.ship.blitme()
+        #self.aliens.draw(self.screen) # added in chapter 13 to put the alien up on screen (pg. 258)
+                    
             # Make the most recently drawn screen visible
         pygame.display.flip()
 

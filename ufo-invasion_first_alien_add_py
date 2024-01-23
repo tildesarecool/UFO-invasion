@@ -117,24 +117,7 @@ class AlienInvasion:
         """create fleet of aliens"""
         # make an alien
         alien = Alien(self)
-        alien_height = alien.rect.height
-        
-        current_y = alien_height
-        while current_y < (self.settings.screen_height + 2 * alien_height):
-            new_alien = Alien(self)
-            new_alien.y = current_y
-            new_alien.rect.y = current_y
-            self.aliens.add(new_alien)
-            current_y = current_y + 2 * alien_height
-            self.aliens.add(alien)
-            print(len(self.aliens))
-        #pass
-
-#    def _create_fleet(self):
-        """create fleet of aliens"""
-#        # make an alien
-#        alien = Alien(self)
-#        self.aliens.add(alien)
+        self.aliens.add(alien)
         #pass
     
     def _update_screen(self):
