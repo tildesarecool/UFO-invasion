@@ -4,8 +4,7 @@ import sys, pygame
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
-
-# import pygame
+from alien import Alien # modification for chapter 13 - bringing in the alien.py stuff
 
 class AlienInvasion: 
     # Overall class to manage game assets and behavior 
@@ -29,6 +28,9 @@ class AlienInvasion:
         pygame.display.set_caption("UFO Invasion")
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group() # create a group that holds the bullets 
+        self.aliens = pygame.sprite.Group() # brought in for chapter 13 for the alien stuff
+        
+        self._create_fleet()  # brought in for chapter 13 for the alien stuff - helper method for lots of aliens
         # set background color
         #self.bg_color = (230,230,230)
         
@@ -109,12 +111,20 @@ class AlienInvasion:
             if bullet.rect.left >= self.settings.screen_width:
                 self.bullets.remove(bullet)
     
+    
+    def _create_fleet(self):  # brought in for chapter 13 for the alien stuff - called above rungame method
+        """create the fleet of aliens"""
+        # make an alien
+        alien = Alien(self)
+        self.aliens.add(alien)
+    
     def _update_screen(self):
         """update images on screen and flip to the new screen"""
         self.screen.fill(self.settings.bg_color) # 230,230,230 = light gray
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.ship.blitme()
+        self.aliens.draw(self.screen) # added in chapter 13 to put the alien up on screen (pg. 258)
                     
             # Make the most recently drawn screen visible
         pygame.display.flip()

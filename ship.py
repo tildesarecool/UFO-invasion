@@ -47,7 +47,6 @@ class Ship:
         # Update the ship's x value, not the rect
         # must change these also to up/down and from x to y        
         
-        
         #if self.moving_right and self.rect.right < self.screen_rect.right: # right hand side is max x value - screen_rect.right
         #    self.x += self.settings.ship_speed
         # I think i got this backwords as i'm testing top vs 0
