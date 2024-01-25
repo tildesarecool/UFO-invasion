@@ -53,6 +53,7 @@ class Alien(Sprite):
         # so vertical/y would 0 and horizontal/x would be (get screen width) - for top vertically and all the way on the right
         # self.rect.midleft = self.screen_rect.midleft # midleft didn't fill in so i don't know if this works
         #self.rect.upright = self.screen_rect.upright
+<<<<<<< .mine
         #self.rect.x = self.screen_rect.width - 100 # these two worked once i added the settings and screen_rect lines above
         #self.rect.y = 10 #self.rect.height
         ###########################################
@@ -110,6 +111,65 @@ class Alien(Sprite):
         
         
         
+=======
+        
+        # ########################################################## #
+        #self.rect.x = self.screen_rect.width - 100 # these two worked once i added the settings and screen_rect lines above
+        #self.rect.y = 10 #self.rect.height
+        # ########################################################## #
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> .theirs
         #self.rect.y = self.screen_rect.top
         
         # store the alien's exact horizontal position
