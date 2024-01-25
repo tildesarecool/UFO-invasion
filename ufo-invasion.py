@@ -1,12 +1,14 @@
-#  19 jan 2023
+#  24 jan 2023
 #  alien invasion game from the book "python crash course"
+# adopted into "ufo invasion" which is mostly alien invasion but roated 90 degrees so it's left/right
+# i've hit the run to confirm that yes, it works prior to starting to work on things.
 import sys, pygame
+from time import sleep # added page 272
 from settings import Settings
+from game_stats import GameStats
 from ship import Ship
 from bullet import Bullet
-from alien import Alien
-
-# import pygame
+from alien import Alien # modification for chapter 13 - bringing in the alien.py stuff
 
 class AlienInvasion: 
     # Overall class to manage game assets and behavior 

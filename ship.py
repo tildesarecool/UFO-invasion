@@ -1,6 +1,30 @@
 # ship.py
 # for the alien invasion script
-# python crash course
+# python crash course: ufo invasion
+# implementing changes from chapter 13
+
+# as i start modifying it, the main problem is the placement of the first alien ship. 
+# i don't need a placement of single initial alien ship i just need the column of them, really
+# did realize that the code was setting the screen coordinates of the alien image to the dimensions of the alien image
+# which is perfect placement of the image in the corner but way too confusing
+# some notes on rectangles from the pygame docs -
+'''
+The Rect object has several virtual attributes which can be used to move and align the Rect:
+x,y
+top, left, bottom, right
+topleft, bottomleft, topright, bottomright
+midtop, midleft, midbottom, midright
+center, centerx, centery
+size, width, height
+w,h
+
+
+All of these attributes can be assigned to: 
+rect1.right = 10
+rect2.center = (20,30)
+
+'''
+
 
 import pygame
 
@@ -29,7 +53,11 @@ class Ship:
         # and this is set to the "bottom middle of the screen rectangle itself"
         # thus, the image is int he middle of the screen at the bottom
         # self.rect.midbottom = self.screen_rect.midbottom # original line
-        self.rect.midleft = self.screen_rect.midleft # midleft didn't fill in so i don't know if this works
+        
+        
+        # may want to adjust this so there's spacing between left side screen and back of ship.
+        # get teh screen height, divide by 2 to get 'midleft' then add 10px so pixels from side or whatever(?)
+        self.rect.midleft = self.screen_rect.midleft 
         
         
         # store a float for the ship's exact horizontal position
