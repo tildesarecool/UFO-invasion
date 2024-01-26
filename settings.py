@@ -19,6 +19,7 @@ class Settings:
         # alien settings
         self.alien_speed = 1.0
         self.fleet_drop_speed = 100 # default value = 10 - setting this to 100 for debug purposes
-        # fleet direction 1 represents right; -1 represents left
+        # this will have to be up and down instead of right/elft
+# fleet direction 1 represents [down]; -1 represents up - 1 is going away from 0 at top and -1 is going towards 0 at top, right??
         self.fleet_direction = 1
         

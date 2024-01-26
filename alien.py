@@ -53,7 +53,6 @@ class Alien(Sprite):
         # so vertical/y would 0 and horizontal/x would be (get screen width) - for top vertically and all the way on the right
         # self.rect.midleft = self.screen_rect.midleft # midleft didn't fill in so i don't know if this works
         #self.rect.upright = self.screen_rect.upright
-<<<<<<< .mine
         #self.rect.x = self.screen_rect.width - 100 # these two worked once i added the settings and screen_rect lines above
         #self.rect.y = 10 #self.rect.height
         ###########################################
@@ -82,18 +81,23 @@ class Alien(Sprite):
         
         #self.rect.x = ai_game.sc
         
+        self.y = float(self.rect.y)
+        
     def check_edges(self):
         """Return true if alien is at edge of screen. - method added chapter 13/pg 265"""    
         screen_rect = self.screen.get_rect()
-        return (self.rect.right >= screen_rect.right) or (self.rect.left <= 0)
+        #return (self.rect.right >= screen_rect.right) or (self.rect.left <= 0)
+        return (self.rect.bottom >= screen_rect.bottom) or (self.rect.top <= 0)
     
         
     # this method was added for the "make the fleet move" section
     def update(self):
-        """move the alien to the right"""
-        self.x += self.settings.alien_speed * self.settings.fleet_direction # not sure if these settings.py variables are getting picked up or not
+        """move the alien to the [down]"""
+#setting.py file: I added in the self.y = float(self.rect.y) though i have no idea what its purpose is
+#                                   1.0                       1 or -1
+        self.y += self.settings.alien_speed * self.settings.fleet_direction # not sure if these settings.py variables are getting picked up or not
         #self.x += self.settings.alien_speed
-        self.rect.x = self.x
+        self.rect.y = self.y # changed these x to y, that's probably right
         
         
         
@@ -111,65 +115,6 @@ class Alien(Sprite):
         
         
         
-=======
-        
-        # ########################################################## #
-        #self.rect.x = self.screen_rect.width - 100 # these two worked once i added the settings and screen_rect lines above
-        #self.rect.y = 10 #self.rect.height
-        # ########################################################## #
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
         #self.rect.y = self.screen_rect.top
         
         # store the alien's exact horizontal position

@@ -154,12 +154,13 @@ class AlienInvasion:
             self._ship_hit()
         
         # look for aliens hitting the bottom of the screen
-        self._check_aliens_bottom()
+        self._check_aliens_left() # checking leftward progress rather than bottomward progress
 
     def _ship_hit(self):
         """respond to the ship being hit by an alien"""
         if self.stats.ships_left > 0: # part of game over edits, pg 274 (also with all the indenting)
             # decrement ships left - method added per book pg 272
+# again, this NUMBER OF SHIPS LEFT as in a counter (not side of the screen)
             self.stats.ships_left -= 1
             
             # Get rid of any remaining bullets and aliens
@@ -198,32 +199,73 @@ class AlienInvasion:
 # here: current_y is 10 px down from top of screen and current_x is 100 pixels in from the right
 # side of the screen
         current_y = 10
-        current_x =  self.screen_rect.width - 100        
+        current_x =  self.settings.screen_width - 100 # i think screen width minus 100 is what i was going for
         while current_y < (self.settings.screen_height + 2 * alien_height):
-            new_alien = Alien(self)
-            new_alien.y = current_y
-            new_alien.rect.y = current_y
-            self.aliens.add(new_alien)
-            current_y = current_y + 2 * alien_height
-            self.aliens.add(alien)
-            print(len(self.aliens))
+            #pass
+            while current_x < (self.settings.screen_width - 2 * alien_width):
+                #pass
+                self._create_alien(current_x, current_y)
+                current_x += 2 * alien_height
+            current_x = alien_width
+            current_y += 2 * alien_height
+    
+    def _create_alien(self, x_position, y_position):
+        '''create an alien and place it in the COLUMN'''
+        new_alien = Alien(self)
+        new_alien.x = x_position
+        new_alien.rect.x = x_position
+        new_alien.rect.y = y_position
+        self.aliens.add(new_alien)
+        
+    def _check_aliens_left(self): # LEFT (where ship is) IN PLACE OF BOTTOM!!
+        '''check if any aliens have reached the [left] of the screen'''
+        for alien in self.aliens.sprites():
+            if alien.rect.left <= self.settings.screen_width: # I'm hoping this will work for horizontal
+                self._ship_hit()
+                break
+            
+    def _check_fleet_edges(self):
+        """respond appropriately if any aliens have reached an edge"""
+        for alien in self.aliens.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                break
+            
+    def _change_fleet_direction(self):
+        """drop the entire fleet and change the fleet's direction"""
+        for alien in self.aliens.sprites():
+            alien.rect.x -= self.settings.fleet_drop_speed # minus is closer to left/ship, right? x is getting closer to 0??
+# fleet_direction defined in settings.py 
+# 1 == down, -1 == up
+# so it starts as moving down then multiply that by neg 1 and you -1 or "up" e.g. "change direction"
+        self.settings.fleet_direction *= -1 
+
+
+        #while current_y < (self.settings.screen_height + 2 * alien_height):
+        #    new_alien = Alien(self)
+        #    new_alien.y = current_y
+        #    new_alien.rect.y = current_y
+        #    self.aliens.add(new_alien)
+        #    current_y = current_y + 2 * alien_height
+        #    self.aliens.add(alien)
+        #    print(len(self.aliens))
         #pass
 
 #    def _create_fleet(self):
-        """create fleet of aliens"""
+  #      """create fleet of aliens"""
 #        # make an alien
 #        alien = Alien(self)
 #        self.aliens.add(alien)
         #pass
     
 
-    def _create_alien(self, x_position, y_position):
-        '''create an alien as place it in the row'''
-        new_alien = Alien(self)
-        new_alien.x = x_position
-        new_alien.rect.x = x_position
-        new_alien.rect.y = y_position
-        self.aliens.add(new_alien) 
+    #def _create_alien(self, x_position, y_position):
+    #    '''create an alien as place it in the row'''
+    #    new_alien = Alien(self)
+    #    new_alien.x = x_position
+    #    new_alien.rect.x = x_position
+    #    new_alien.rect.y = y_position
+    #    self.aliens.add(new_alien) 
 
 
 
