@@ -62,6 +62,16 @@ class UFOInvasion:
         # self.play_button = Button(self, "Play")
         
             # per the book, methods that start with a _ are "helper methods"
+        
+        
+        
+# This is the code for full screen, which looks terrible on my giant monitor - 
+# page 245 - after implementing it the books says (paraphrasing)
+# "but if that doesn't work good that keep the old code" - could have said that first!
+#        self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+#        self.settings.screen_width = self.screen.get_rect().width
+#        self.settings.screen_height = self.screen.get_rect().height
+
     def run_game(self):    
         """start the main loop for the game"""
         while True:
@@ -109,36 +119,30 @@ class UFOInvasion:
             if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.KEYDOWN: # physically push a key down
-                if event.key == pygame.K_UP: # predefined which keyboard key - the up arrow
-                    self.ship.moving_up = True
-                elif event.key == pygame.K_DOWN:
-                    self.ship.moving_down = True
-            # pushing key down versus releasing key and setting correlating variable to true/false
+                self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_UP:
-                    self.ship.moving_up = False # when key released stop moving ship upwards
-                elif event.key == pygame.K_DOWN:
-                    self.ship.moving_down = False
+                self._check_keyup_events(event)
+
 
                 
 # ################################################################ #
-#    def _check_keydown_events(self, event):
-#        '''respond to keypresses'''
-#        if event.key == pygame.K_UP:
-#            self.ship.moving_top = True
-#        elif event.key == pygame.K_DOWN:
-#            self.ship.moving_bottom = True
-#        elif event.key == pygame.K_q:
-#            sys.exit()
-#        elif event.key == pygame.K_SPACE:
-#            self._fire_bullet()
+    def _check_keydown_events(self, event):
+        '''respond to keypresses'''
+        if event.key == pygame.K_UP:
+            self.ship.moving_up = True
+        elif event.key == pygame.K_DOWN:
+            self.ship.moving_down = True
+        elif event.key == pygame.K_q:
+            sys.exit()
+        #elif event.key == pygame.K_SPACE:
+        #    self._fire_bullet()
     
-#    def _check_keyup_events(self, event):
-#        """repsond to key releases"""
-#        if event.key == pygame.K_UP:
-#            self.ship.moving_top = False
-#        elif event.key == pygame.K_DOWN:
-#            self.ship.moving_bottom = False
+    def _check_keyup_events(self, event):
+        """repsond to key releases"""
+        if event.key == pygame.K_UP:
+            self.ship.moving_up = False
+        elif event.key == pygame.K_DOWN:
+            self.ship.moving_down = False
             
 
 ###################################
