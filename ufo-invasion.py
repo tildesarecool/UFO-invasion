@@ -48,8 +48,8 @@ class UFOInvasion:
 # some variables for later. I'll uncomment as necessary
 
         # not anything to do yet but groups established
-        self.bullets = pygame.sprite.Group() # create a group that holds the bullets 
-        self.aliens = pygame.sprite.Group() # brought in for chapter 13 for the alien stuff
+        self.bulletsGroup = pygame.sprite.Group() # create a group that holds the bullets - changed name to be more descriptive/less confusing
+        self.aliensGroup = pygame.sprite.Group() # group to hold aliens in fleet - changed name to be more descriptive/less confusing
         
         #there's some early stuff or setting bg color in __init__(self) but that will end up in _update screen later (pg. 231)
         # so I'm skipping it for (i may have to set it if i can't see the ship over the default black bg)
@@ -76,14 +76,16 @@ class UFOInvasion:
                 if event.type == pygame.QUIT:
                     sys.exit() # don't forget paranse in that exist method! i think i forgot that the first time as well
             '''
+            # class this in run game. it'll be defined below
+            self._update_screen()
 
             # added this blitme() method and above self.ship = Ship(self) instantiation at same time
             # this method should draw the ship
             # this is when i find out how important setting a specific background is...the ship showed up. 
             # i'll do the bg thing later
-            self.ship.blitme()
+           # self.ship.blitme() # moved to update_screen
             # about the only thing left without the other files existing - seems like part of boiler plate really
-            pygame.display.flip()
+            #pygame.display.flip()
             self.clock.tick(60) # related to consistent framerate - see also the self.clock line in the init function
             # Watch for keyboard and mouse events.
         
@@ -92,6 +94,39 @@ class UFOInvasion:
         # but I'd like to separate that into another file
         # this will be a departure from the book but...here goes
         # I'll call it game_events.py
+        
+        # now i could put the _update_screen method into a separate file too, but instead 
+        # i'll just leave in here
+
+    def _update_screen(self):
+        """update images on screen and flip to the new screen"""        
+        self.ship.blitme()
+        pygame.display.flip()
+    
+    
+    '''
+    # here's the final version for reference
+        def _update_screen(self):
+        """update images on screen and flip to the new screen"""
+        self.screen.fill(self.settings.bg_color) # 230,230,230 = light gray
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
+        self.ship.blitme()
+        self.aliens.draw(self.screen) # added in chapter 13 to put the alien up on screen (pg. 258)
+        
+        # draw the score information
+        self.sb.show_score()
+        
+        # Make the most recently drawn screen visible
+        # Draw the play button if the game is inactive
+        if not self.game_active:
+            self.play_button.draw_button()
+            
+        pygame.display.flip()
+
+
+
+    '''
         
         
 if __name__ == '__main__':
