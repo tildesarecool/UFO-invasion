@@ -4,8 +4,10 @@
 # I also want to add some features like sound effects/music and maybe
 # multiple stages (some of which are verticale), multiple keybindings for controls (if not custom keybindings)
 # and mutliple enemy types
-# first step: just get the player ship up on a screen - completed
-# second step: moving ship up/down
+# 1st step: just get the player ship up on a screen - completed
+# 2nd step: moving ship up/down constrained by top and bottom of window - completed (pending also refactor)
+# 3rd step: placing an alien on screen at opposite end of window
+# 4th step: firing bullet across screen
 
 import sys, pygame
 #from time import sleep # added page 272

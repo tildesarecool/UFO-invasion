@@ -83,11 +83,15 @@ class Ship: # decided to start over for the ship class
     def update(self):
         """update the ship's [VERTICAL] position based on the movement flags."""
         # updat the ship's y value, not the rect
-        if self.moving_up:
+                            # refers to side of rectangle - top
+        #if self.moving_up and self.rect.top < self.screen_rect.top:
+        if self.moving_up and self.rect.top > 0:
             self.y -= self.settings.ship_speed
             #self.rect.y -= 1 # re-adjusted to decrease value so it move towards 0/top of screen
             
-        if self.moving_down:
+                            # refers to side of rectangle - bottom
+        #if self.moving_down and self.rect.bottom > 0:
+        if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
             #self.rect.y += 1
             self.y += self.settings.ship_speed
         
