@@ -68,7 +68,7 @@ class UFOInvasion:
             # so here it's just the extra step of the instantiated GameEvents class above, events, 
             # then _check_events() - should work the same
             self._check_events()
-            #self.ship.update()
+            self.ship.update()
             
             
             '''
@@ -103,16 +103,21 @@ class UFOInvasion:
 
     def _check_events(self):
         for event in pygame.event.get():
+            
             if event.type == pygame.QUIT:
                 sys.exit()
-            elif event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN: # physically push a key down
+                if event.key == pygame.K_UP: # predefined which keyboard key - the up arrow
+                    self.ship.moving_up = True
+                elif event.key == pygame.K_DOWN:
+                    self.ship.moving_down = True
+            # pushing key down versus releasing key and setting correlating variable to true/false
+            elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_UP:
-                    # move ship upwards
-                    self.ship.rect.y -= 1
-            #elif event.type == pygame.KEYDOWN:
-            #    self._check_keydown_events(event)
-            #elif event.type == pygame.KEYUP:
-            #    self._check_keyup_events(event)
+                    self.ship.moving_up = False # when key released stop moving ship upwards
+                elif event.key == pygame.K_DOWN:
+                    self.ship.moving_down = False
+
                 
 # ################################################################ #
 #    def _check_keydown_events(self, event):

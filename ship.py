@@ -28,7 +28,10 @@ class Ship: # decided to start over for the ship class
     # in original version from book
     def __init__(self, ufoinv_game): 
         """initialize the ship and set its starting position"""
-        
+        # some how i missed that these were set in the init method
+        # so it didn't work. they just belong in the init method
+        self.moving_up = False
+        self.moving_down = False
         # this is rotated 90 degree version. instead of 'midbottom' it's 'midleft'
         
         # these four seems like boiler plate at this point
@@ -73,3 +76,11 @@ class Ship: # decided to start over for the ship class
     
     
     '''
+    def update(self):
+        """update the ship's [VERTICAL] position based on the movement flags."""
+        if self.moving_up:
+            self.rect.y -= 1 # re-adjusted to decrease value so it move towards 0/top of screen
+            
+        if self.moving_down:
+            self.rect.y += 1
+            
