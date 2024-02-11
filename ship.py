@@ -43,6 +43,7 @@ class Ship: # decided to start over for the ship class
         # since they're coming off of pygame, an already imported library above
         # and the same for self.screen_rect.midleft below
         self.screen = ufoinv_game.screen
+        self.settings = ufoinv_game.settings 
         self.screen_rect = ufoinv_game.screen.get_rect()
         
         # load ship image and assign a rect to the rect of the image
@@ -59,6 +60,9 @@ class Ship: # decided to start over for the ship class
         
         # this is saying "assign the midleft of the ship's rectangle to the midleft of the screen's rectangle"
         self.rect.midleft = self.screen_rect.midleft
+        
+        # store float for ship's exact horizontal position 
+        self.y = float(self.rect.y)
         
     def blitme(self):
         """draw the ship at its current location"""
@@ -78,9 +82,15 @@ class Ship: # decided to start over for the ship class
     '''
     def update(self):
         """update the ship's [VERTICAL] position based on the movement flags."""
+        # updat the ship's y value, not the rect
         if self.moving_up:
-            self.rect.y -= 1 # re-adjusted to decrease value so it move towards 0/top of screen
+            self.y -= self.settings.ship_speed
+            #self.rect.y -= 1 # re-adjusted to decrease value so it move towards 0/top of screen
             
         if self.moving_down:
-            self.rect.y += 1
+            #self.rect.y += 1
+            self.y += self.settings.ship_speed
+        
+        # update rect object from self.y
+        self.rect.y = self.y
             
