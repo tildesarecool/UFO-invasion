@@ -4,18 +4,19 @@
 # I also want to add some features like sound effects/music and maybe
 # multiple stages (some of which are verticale), multiple keybindings for controls (if not custom keybindings)
 # and mutliple enemy types
-# first step: just get the player ship up on a screen
+# first step: just get the player ship up on a screen - completed
+# second step: moving ship up/down
 
 import sys, pygame
 #from time import sleep # added page 272
 from settings import Settings # i just copy/pasted from existing settings file (last version from chapter 14). i'll go back later and adjust if necessary
 #from game_stats import GameStats
-from ship import Ship
+from ship import Ship 
 #from bullet import Bullet
 #from alien import Alien # modification for chapter 13 - bringing in the alien.py stuff
 #from button import Button
 #from scoreboard import Scoreboard
-from game_events import GameEvents # departure from book for keybinds
+#from game_events import GameEvents #  it was taking too long to figure this out so i'll come back to the idea
 
 class UFOInvasion: 
     # Overall class to manage game assets and behavior 
@@ -42,7 +43,7 @@ class UFOInvasion:
         # departure from book for keybinds
         # I just assumed I needed to pass it self, which is ufo invasion class
         # just following how ship was done
-        self.events = GameEvents(self)
+        #self.events = GameEvents(self) # i don't think this is necessary
 ################# boiler plate stuff ############################
 
 # some variables for later. I'll uncomment as necessary
@@ -66,8 +67,8 @@ class UFOInvasion:
             # self._check_events()
             # so here it's just the extra step of the instantiated GameEvents class above, events, 
             # then _check_events() - should work the same
-            self.events._check_events()
-            
+            self._check_events()
+            #self.ship.update()
             
             
             '''
@@ -98,8 +99,48 @@ class UFOInvasion:
         # now i could put the _update_screen method into a separate file too, but instead 
         # i'll just leave in here
 
+###################################
+
+    def _check_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    # move ship upwards
+                    self.ship.rect.y -= 1
+            #elif event.type == pygame.KEYDOWN:
+            #    self._check_keydown_events(event)
+            #elif event.type == pygame.KEYUP:
+            #    self._check_keyup_events(event)
+                
+# ################################################################ #
+#    def _check_keydown_events(self, event):
+#        '''respond to keypresses'''
+#        if event.key == pygame.K_UP:
+#            self.ship.moving_top = True
+#        elif event.key == pygame.K_DOWN:
+#            self.ship.moving_bottom = True
+#        elif event.key == pygame.K_q:
+#            sys.exit()
+#        elif event.key == pygame.K_SPACE:
+#            self._fire_bullet()
+    
+#    def _check_keyup_events(self, event):
+#        """repsond to key releases"""
+#        if event.key == pygame.K_UP:
+#            self.ship.moving_top = False
+#        elif event.key == pygame.K_DOWN:
+#            self.ship.moving_bottom = False
+            
+
+###################################
+
+
+
     def _update_screen(self):
         """update images on screen and flip to the new screen"""        
+        self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
         pygame.display.flip()
     
@@ -139,4 +180,5 @@ if __name__ == '__main__':
     # also, the file isn't named 'main.py' which i thought was the purpose of this 
     # if __name__ - '__main__" thing but whatever, if it works it works
     ufoinv = UFOInvasion()
+    #ufoinv.events
     ufoinv.run_game()

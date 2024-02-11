@@ -110,7 +110,7 @@ class AlienInvasion:
     
     
     #def _create_fleet(self):  # brought in for chapter 13 for the alien stuff - called above rungame method
-        """create the fleet of aliens"""
+        #"""create the fleet of aliens"""
 
 
         # create an alien an dkeep adding aliens until there's no room left
@@ -127,7 +127,7 @@ class AlienInvasion:
             #current_y += 2 * alien_height
             #self.aliens.add(alien)
 
-''' this is the working horizontal version for reference'''        
+    #''' this is the working horizontal version for reference'''        
         #alien = Alien(self)
         #current_x = alien_width
         #alien_width = alien.rect.width # width version/working

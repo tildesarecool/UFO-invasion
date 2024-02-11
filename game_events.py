@@ -8,15 +8,25 @@ from ship import Ship
 class GameEvents:
     def __init__(self, ufoinv_game): 
         """doing events from another class"""
-        #self.ship = Ship(self)
+        #self.ship = Ship(ufoinv_game)
+        self.ship = Ship()
+        #        self.screen = ufoinv_game.screen
+        #self.ship.rect.y 
         
-        self.screen = ufoinv_game.screen
-        self.screen_rect = ufoinv_game.screen.get_rect()
+        #screen = ufoinv_game.screen
+        #screen_rect = ufoinv_game.screen.get_rect()
     
     def _check_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+######### this is just a temporary experiment to see if the keys events work at all, to be replaced #########################
+            elif event.type == pygame.KEYDOWN:   # physically pushing key down, not moving ship downward
+                if event.key == pygame.K_UP:
+                    # move ship up 
+                    self.ship.rect.y -= 1 # start in middle, subtract 1 goes towards 0 e.g. upwards/top of screen
+                    
+                #pass
 #            elif event.type == pygame.KEYDOWN:
 #                self._check_keydown_events(event)
 #            elif event.type == pygame.KEYUP:
