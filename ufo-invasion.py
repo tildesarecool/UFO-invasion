@@ -14,7 +14,7 @@ import sys, pygame
 from settings import Settings # i just copy/pasted from existing settings file (last version from chapter 14). i'll go back later and adjust if necessary
 #from game_stats import GameStats
 from ship import Ship 
-#from bullet import Bullet
+from bullet import Bullet
 #from alien import Alien # modification for chapter 13 - bringing in the alien.py stuff
 #from button import Button
 #from scoreboard import Scoreboard
@@ -81,6 +81,9 @@ class UFOInvasion:
             # then _check_events() - should work the same
             self._check_events()
             self.ship.update()
+            #self.bullet.update()
+            self.bulletsGroup.update() # I renamed the bullet group from "bullets" to "bulletsGroup"
+            
             
             
             '''
@@ -134,6 +137,8 @@ class UFOInvasion:
             self.ship.moving_down = True
         elif event.key == pygame.K_q:
             sys.exit()
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
         #elif event.key == pygame.K_SPACE:
         #    self._fire_bullet()
     
@@ -144,7 +149,12 @@ class UFOInvasion:
         elif event.key == pygame.K_DOWN:
             self.ship.moving_down = False
             
-
+    def _fire_bullet(self):
+        """create a new bullet and add it to the bullets group"""
+        if len(self.bullets) < self.settings.bullets_allowed: # arbitrarily limit number of bullets on screen at once (page 251) see also bullets.py
+            new_bullet = Bullet(self)
+            self.bulletsGroup.add(new_bullet)
+            
 ###################################
 
 
@@ -152,6 +162,10 @@ class UFOInvasion:
     def _update_screen(self):
         """update images on screen and flip to the new screen"""        
         self.screen.fill(self.settings.bg_color)
+        
+        for bullet in self.bulletsGroup.sprites():
+            bullet.draw_bullet()
+        
         self.ship.blitme()
         pygame.display.flip()
     

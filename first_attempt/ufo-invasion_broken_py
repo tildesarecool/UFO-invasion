@@ -167,7 +167,7 @@ class AlienInvasion:
         #self.aliens.draw(self.screen) # added in chapter 13 to put the alien up on screen (pg. 258)
                     
             # Make the most recently drawn screen visible
-        pygame.display.flip()
+        #pygame.display.flip()
 
                 
 if __name__ == '__main__':
