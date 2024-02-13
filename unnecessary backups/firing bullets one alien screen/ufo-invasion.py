@@ -171,52 +171,21 @@ class UFOInvasion:
         # this add is for the Alien object instance created in the line above
         # e.g. lowercase and singlular 'alien'
         self.aliensGroup.add(alien) 
-
-        # for this one the right is more relevant than the weidth, at least for the 
-        # fist column. i think i can still use this line though. right?
-        # alien width/height based on the alien rectangle?
-        # i think the two together like this must come in later during a refactor
-        alien_width, alien_height = alien.rect.size
-
-        # from the book (where it's x) this refers to "the position of the NEXT alien
-        # we intend to place on the screen - initially set this one one alien width to offeset the first alien in the fleet"
-        # this page 259/260
-        #current_y = alien.rect.height # height of alien rect is 58
-        #print(f"outside while, current_x is {current_y}")
-        #print(f"self.settings.screen_height - (20 * alien_height is) {(self.settings.screen_height - (2 * alien_height)) }")
-        # self.settings.screen_height - 20 * alien_height
-        #  The order is PEMDAS: Parentheses, Exponents, Multiplication, and Division (from left to right), Addition and Subtraction (from left to right).
-        #                              height = 800 - 20 = 780 * 58 
-
-        # I think I'm going to try something new, which is just adding one additional alien without the loop
-        # since i noted in the first entry of the book (before refactor) there's only current x defined no current y
-        # so I assume that the y i left over over from alien.py alien class
-        '''
-                self.screen_rect = self.screen.get_rect()
-        # the extra 20 px is to make sure no part of the alien is too far to right to see on screen
-        self.xpos = self.screen_rect.width - self.rect.width - 20
+ 
+#        alien_width, alien_height = alien.rect.size
         
-        self.rect.x = self.xpos # self.screen_rect.right
-        self.rect.y = self.rect.height
-        '''
-        current_x = self.screen.get_width - self.rect.width - 20
-        current_y = self.screen.get_height - self.rect.height - 20
-        new_alien = Alien(self)
-        new_alien.y = current_y
-        new_alien.rect.y = current_y
-        new_alien.x = xpos
+#        current_x, current_y = alien_width, alien_height
+        
+#        while current_y <  (self.settings.screen_height - 3 * alien_height):
+#            while current_x < (self.settings.screen_width - 2 * alien_width):
+#                self._create_alien(current_x, current_y)
 
-
-
-
-
-#        while current_y < (self.settings.screen_height - (2 * alien_height)):
-#            new_alien = Alien(self)
-#            new_alien.y = current_y
-#            self.aliensGroup.add(new_alien)
+#                current_x += 2 * alien_width
+#            current_x = alien_width
 #            current_y += 2 * alien_height
-#            print(f"last line of while, current_y is {current_y}")
-        
+            
+
+
 
 
     def _update_screen(self):
