@@ -15,7 +15,7 @@ from settings import Settings # i just copy/pasted from existing settings file (
 #from game_stats import GameStats
 from ship import Ship 
 from bullet import Bullet
-#from alien import Alien # modification for chapter 13 - bringing in the alien.py stuff
+from alien import Alien # modification for chapter 13 - bringing in the alien.py stuff
 #from button import Button
 #from scoreboard import Scoreboard
 #from game_events import GameEvents #  it was taking too long to figure this out so i'll come back to the idea
@@ -58,7 +58,7 @@ class UFOInvasion:
         # so I'm skipping it for (i may have to set it if i can't see the ship over the default black bg)
         
         # save these two for way later
-        # self._create_fleet() 
+        self._create_fleet() 
         # self.play_button = Button(self, "Play")
         
             # per the book, methods that start with a _ are "helper methods"
@@ -160,6 +160,33 @@ class UFOInvasion:
 ###################################
 
 
+    def _create_fleet(self):  # brought in for chapter 13 for the alien stuff - called above rungame method
+        """create the fleet of aliens"""
+        # create an alien and keep adding aliens until there's no room left
+        # spacing between aliens is one alien width and one alien height
+        # make an alien
+        alien = Alien(self)
+        
+        # I remembered to call it a group this time...
+        # this add is for the Alien object instance created in the line above
+        # e.g. lowercase and singlular 'alien'
+        self.aliensGroup.add(alien) 
+ 
+#        alien_width, alien_height = alien.rect.size
+        
+#        current_x, current_y = alien_width, alien_height
+        
+#        while current_y <  (self.settings.screen_height - 3 * alien_height):
+#            while current_x < (self.settings.screen_width - 2 * alien_width):
+#                self._create_alien(current_x, current_y)
+
+#                current_x += 2 * alien_width
+#            current_x = alien_width
+#            current_y += 2 * alien_height
+            
+
+
+
 
     def _update_screen(self):
         """update images on screen and flip to the new screen"""        
@@ -169,6 +196,7 @@ class UFOInvasion:
             bullet.draw_bullet()
         
         self.ship.blitme()
+        self.aliensGroup.draw(self.screen) # draw is alien group method
         pygame.display.flip()
     
     
