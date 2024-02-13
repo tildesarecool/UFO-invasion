@@ -13,8 +13,8 @@ class Settings:
         self.ship_limit = 3
         # bullet settings
         #self.bullet_speed = 6.0
-        self.bullet_width = 300 # default value = 3 - a good value for test is 300
-        self.bullet_height = 15
+        self.bullet_width = 15 # default value = 3 - a good value for test is 300
+        self.bullet_height = 3
         self.bullet_color = (60, 60, 60) # 60, 60, 60 is "dark gray" (apparently 000 = black and 255 255 255 = white)
         self.bullets_allowed = 9 # default value = 3 arbitrarily limit number of bulets on screen at once (page 251)
         # alien settings

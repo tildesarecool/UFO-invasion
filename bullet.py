@@ -24,7 +24,8 @@ class Bullet(Sprite):
         
         # with the big height debug size bullets, lining a bullet midleft with the ship's mid right made sense (and it works)
         # i think this is the only chap 13 edit needed for bullet.py
-        self.rect.midleft = ufoinv_game.ship.rect.midright 
+        #self.rect.midleft = ufoinv_game.ship.rect.midright 
+        self.rect.midright = ufoinv_game.ship.rect.midright 
         
         # this has to be change to be x
         #store the bullet's psition as a float

@@ -151,9 +151,11 @@ class UFOInvasion:
             
     def _fire_bullet(self):
         """create a new bullet and add it to the bullets group"""
-        if len(self.bullets) < self.settings.bullets_allowed: # arbitrarily limit number of bullets on screen at once (page 251) see also bullets.py
+        # arbitrarily limit number of bullets on screen at once (page 251) see also bullets.py
+        # the first version of this after that max bullets no bullets at all fire
+        if len(self.bulletsGroup) < self.settings.bullets_allowed: 
             new_bullet = Bullet(self)
-            self.bulletsGroup.add(new_bullet)
+            self.bulletsGroup.add(new_bullet) # new bullet group name hits me again. only took a few minutes to find though
             
 ###################################
 
