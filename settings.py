@@ -21,6 +21,11 @@ class Settings:
         #self.alien_speed = 1.0
         self.fleet_drop_speed = 10 # default value = 10 - setting this to 100 for debug purposes
         
+        # this i came up with all on my own - see settings.py and 
+        # the _create_fleet() method in ufo-invasion.py
+        self.fleet_ship_spacing = 20
+        
+        
         # how quickly the game speeds up 
         self.speedup_scale = 1.1
         

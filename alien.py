@@ -43,8 +43,13 @@ class Alien(Sprite):
         # the extra 20 px is to make sure no part of the alien is too far to right to see on screen
         self.xpos = self.screen_rect.width - self.rect.width - 20
         
-        self.rect.x = self.xpos # self.screen_rect.right
-        self.rect.y = self.rect.height
+        self.rect.x = float(self.xpos) # self.screen_rect.right        
+        # since the ship and the ship rectangle are the same and the fleet position is relative to that that is adjusted here
+        # maybe i should just make this a setting? # self.fleet_ship_spacing note: see settings.py, made it a note
+        # the self.settings.fleet_ship_spacing wasn't working from here so i moved the - self.settings.fleet_ship_spacing 
+        # over to the _create_fleet() method in ufo-invasion
+        
+        self.rect.y = self.rect.height #- self.settings.self.fleet_ship_spacing
         # store the alien's exact horizontal position
         # I think what this is doing is using the width of the image rectangle
         # as the x coordinate for the screen position

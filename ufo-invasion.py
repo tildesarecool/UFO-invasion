@@ -4,10 +4,24 @@
 # I also want to add some features like sound effects/music and maybe
 # multiple stages (some of which are verticale), multiple keybindings for controls (if not custom keybindings)
 # and mutliple enemy types
-# 1st step: just get the player ship up on a screen - completed
-# 2nd step: moving ship up/down constrained by top and bottom of window - completed (pending also refactor)
-# 3rd step: placing an alien on screen at opposite end of window
-# 4th step: firing bullet across screen
+# - 1st step: just get the player ship up on a screen - completed
+# - 2nd step: moving ship up/down constrained by top and bottom of window - completed 
+#  - 3rd step: firing bullet across screen - completed (bullets don't delete themselves yet)
+#  - 4th step: placing 1 column of aliens on screen at opposite end of window via while loop - (alies show up, while loop pending)
+#  - 5th step: draw multiple columns of aliens via embedded while loops
+#  - 6th step: bullets collid with aliens, elminating each one
+#  - 7th step: scoring system, tracking number of tries/game restarts left
+#  - 8th step: a "click to play" button/pause button
+
+# Stretch/dream/at the end goals:
+# - music, sound effects
+# - save settings to JSON file/load settings from JSON file
+#   - a settings menu in-game where things like sound volume and resolution could be set
+#   - a "secret" debug input box i can access to change setting values while playing
+# - at least two different varieties of enemies
+#   - one or all enemies fly in patterns instead of move down/move up/move closer
+#   - enemies fire bullets back at random
+
 
 import sys, pygame
 #from time import sleep # added page 272
@@ -165,18 +179,56 @@ class UFOInvasion:
         # create an alien and keep adding aliens until there's no room left
         # spacing between aliens is one alien width and one alien height
         # make an alien
-        alien = Alien(self)
+        
+        # in my experimenting i was skipping some steps for troubleshooting -
+        # i wanted to just added lots of aliens and skip the while loop to show just one at a time
+        # but also skipped adding aliens to alienGroup
+        # and the _update_screen only writes that group to the screen so once i added the aliens to the group 
+        # magically they showed up. now just have to add one a time maybe
+        # these two lines
+        # self.aliensGroup.add(alien)
+        # self.aliensGroup.add(new_alien)
+        
+        alien = Alien(self) # just creating first alien at that original position defined in alien.py
+        alien_height = alien.rect.height # just the height of the alien so we have it for later
+        alien_fleet_spacing = alien.rect.height * 2
+                
+        # I rcreated the self.settings.fleet_ship_spacing as a variable in settings.py
+        # so i could easily adjust it like everything else - note: 10px might be too much
+        current_y = alien.y - self.settings.fleet_ship_spacing 
+        
+        new_alien = Alien(self)
+        sec_alien = Alien(self)
+        third_alien = Alien(self)
+        
+        new_alien.y = current_y# + (alien_height * 2)
+        new_alien.rect.y = current_y #+ (alien.rect.height * 2)
+        
+        sec_alien.y = new_alien.rect.bottom + self.settings.fleet_ship_spacing # + (alien_height + self.settings.fleet_ship_spacing + alien_fleet_spacing) # + (alien_height * 2)
+        sec_alien.rect.y = new_alien.rect.bottom + self.settings.fleet_ship_spacing  # (alien_height + self.settings.fleet_ship_spacing + alien_fleet_spacing) # (alien.rect.height * 2)
+        
+        third_alien.y = sec_alien.rect.bottom + self.settings.fleet_ship_spacing #current_y +   (alien_height + self.settings.fleet_ship_spacing * 4) # + (alien_height * 2)
+        third_alien.rect.y = sec_alien.rect.bottom + self.settings.fleet_ship_spacing #current_y +  (alien_height + self.settings.fleet_ship_spacing * 4) # (alien.rect.height * 2)
+        
+        #self.aliensGroup.add(alien)
+        self.aliensGroup.add(new_alien, sec_alien, third_alien)
+        #self.aliensGroup.add(third_alien)
+        
+        print(f"sec_alien.y is {sec_alien.y} and new alien xpos is {new_alien.xpos}")
+        print(f"current y is {current_y} and first alien xpos is {alien.xpos}")
+        print(f"sec_alien.rect.y is {sec_alien.rect.y} ")
+        
         
         # I remembered to call it a group this time...
         # this add is for the Alien object instance created in the line above
         # e.g. lowercase and singlular 'alien'
-        self.aliensGroup.add(alien) 
+        #self.aliensGroup.add(alien) 
 
         # for this one the right is more relevant than the weidth, at least for the 
         # fist column. i think i can still use this line though. right?
         # alien width/height based on the alien rectangle?
         # i think the two together like this must come in later during a refactor
-        alien_width, alien_height = alien.rect.size
+        #alien_width, alien_height = alien.rect.size
 
         # from the book (where it's x) this refers to "the position of the NEXT alien
         # we intend to place on the screen - initially set this one one alien width to offeset the first alien in the fleet"
@@ -199,12 +251,15 @@ class UFOInvasion:
         self.rect.x = self.xpos # self.screen_rect.right
         self.rect.y = self.rect.height
         '''
-        current_x = self.screen.get_width - self.rect.width - 20
-        current_y = self.screen.get_height - self.rect.height - 20
-        new_alien = Alien(self)
-        new_alien.y = current_y
-        new_alien.rect.y = current_y
-        new_alien.x = xpos
+        #current_x = self.screen.get_width - self.rect.width - 20
+        #current_y = self.screen.get_height - self.rect.height - 20
+        #new_alien = Alien(self)
+        
+        #current_y = new_alien.y
+        #new_alien.rect.y = new_alien.y
+        
+        #current_x = new_alien.xpos
+        #new_alien.rect.x = 
 
 
 
