@@ -7,13 +7,14 @@ Adaption (attempted?) of "Python Crash Course" chapter 12 to be horizontal shmup
  - 3rd step: firing bullet across screen - completed (bullets don't delete themselves yet)
  - 4th step: placing 1 column of aliens on screen at opposite end of window via while loop - (alies show up, while loop pending)
  - 5th step: draw multiple columns of aliens via embedded while loops
- - 6th step: bullets collid with aliens, elminating each one
+ - 6th step: bullets collide with aliens, elminating each one
  - 7th step: scoring system, tracking number of tries/game restarts left
  - 8th step: a "click to play" button/pause button
 
 Stretch/dream/at the end goals:
 - music, sound effects
 - save settings to JSON file/load settings from JSON file
+ **complete:** ```much more straight forward to implement than I thought. Keep in mind I haven't fully tested all "edge cases" around this feature.```
   - a settings menu in-game where things like sound volume and resolution could be set
   - a "secret" debug input box i can access to change setting values while playing
 - at least two different varieties of enemies

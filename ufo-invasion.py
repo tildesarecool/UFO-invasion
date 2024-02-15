@@ -23,7 +23,7 @@
 #   - enemies fire bullets back at random
 
 
-import sys, pygame
+import sys, pygame, os
 #from time import sleep # added page 272
 from settings import Settings # i just copy/pasted from existing settings file (last version from chapter 14). i'll go back later and adjust if necessary
 #from game_stats import GameStats
@@ -43,6 +43,20 @@ class UFOInvasion:
         
         self.clock = pygame.time.Clock() # related to consistent frame rate - see also tick method
         self.settings = Settings() # yes, need settings file
+        
+        
+        ##### I added this related to the additional save/load settings in settings.py
+        ##### which I got from chatgpt - 15 feb 2024
+        if os.path.exists("settings.json") == False:
+            try:
+                self.settings.save_settings_to_json("settings.json")
+            except Exception as e:
+                print(f"Error saving settings file - error is: {e}")
+        else:
+            self.settings.load_settings_from_json("settings.json")
+        
+        ##### I added this related to the additional save/load settings in settings.py
+        ##### which I got from chatgpt - 15 feb 2024
         
         self.screen = pygame.display.set_mode(
             (

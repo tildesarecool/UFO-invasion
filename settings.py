@@ -1,5 +1,8 @@
 # settings.py - settings for alien invasion script
-# modified for chapter 14/pg 284
+
+import json # these two lines added as part of new save-to-json
+import os   # functinality added 15 feb 2024 (not in book)
+
 class Settings:
     """a class to store all settings for alien invasion"""
     def __init__(self):
@@ -59,3 +62,48 @@ class Settings:
         
         self.alien_points = int(self.alien_points * self.score_scale)
         #print(self.alien_points)
+
+#### this is some settings/json code i got from chatgpt 15 feb 2024 (not in book)
+#### a lot less code than I thought, actually
+
+
+    def save_settings_to_json(self, filename):
+        """Save settings to a JSON file."""
+        settings_dict = {
+            "screen_width": self.screen_width,
+            "screen_height": self.screen_height,
+            "bg_color": self.bg_color,
+            "ship_limit": self.ship_limit,
+            "bullet_width": self.bullet_width,
+            "bullet_height": self.bullet_height,
+            "bullet_color": self.bullet_color,
+            "bullets_allowed": self.bullets_allowed,
+            "fleet_drop_speed": self.fleet_drop_speed,
+            "fleet_ship_spacing": self.fleet_ship_spacing,
+            "speedup_scale": self.speedup_scale,
+            "score_scale": self.score_scale,
+            "ship_speed": self.ship_speed,
+            "bullet_speed": self.bullet_speed,
+            "alien_speed": self.alien_speed,
+            "fleet_direction": self.fleet_direction,
+            "alien_points": self.alien_points
+        }
+        with open(filename, 'w') as file:
+            json.dump(settings_dict, file)
+            
+    def load_settings_from_json(self, filename):
+        """Load settings from a JSON file."""
+        if os.path.exists(filename):
+            try:
+                with open(filename, 'r') as file:
+                    settings_dict = json.load(file)
+                # Update settings with values from the JSON file
+                self.screen_width = settings_dict.get("screen_width", self.screen_width)
+                self.screen_height = settings_dict.get("screen_height", self.screen_height)
+                self.bg_color = tuple(settings_dict.get("bg_color", self.bg_color))
+                self.ship_limit = settings_dict.get("ship_limit", self.ship_limit)
+                # Update other settings similarly
+            except Exception as e:
+                print(f"Error loading settings from JSON file: {e}")
+        else:
+            print("Settings JSON file not found. Using default settings.")
