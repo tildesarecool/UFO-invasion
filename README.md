@@ -2,10 +2,10 @@
 Adaption (attempted?) of "Python Crash Course" chapter 12 to be horizontal shmup
 
 ## Here's a loose list of steps 
- - 1st step: just get the player ship up on a screen - completed
- - 2nd step: moving ship up/down constrained by top and bottom of window - completed 
- - 3rd step: firing bullet across screen - completed (bullets don't delete themselves yet)
- - 4th step: placing 1 column of aliens on screen at opposite end of window via while loop - (alies show up, while loop pending)
+ - 1st step: just get the player ship up on a screen - **completed**
+ - 2nd step: moving ship up/down constrained by top and bottom of window - **completed**
+ - 3rd step: firing bullet across screen - **completed** ```(bullets don't delete themselves yet)```
+ - 4th step: placing 1 column of aliens on screen at opposite end of window via while loop - (aliens show up, while loop pending)
  - 5th step: draw multiple columns of aliens via embedded while loops
  - 6th step: bullets collide with aliens, elminating each one
  - 7th step: scoring system, tracking number of tries/game restarts left
@@ -16,7 +16,7 @@ Stretch/dream/at the end goals:
 - save settings to JSON file/load settings from JSON file
  **complete:** ```much more straight forward to implement than I thought. Keep in mind I haven't fully tested all "edge cases" around this feature.```
   - a settings menu in-game where things like sound volume and resolution could be set
-  - a "secret" debug input box i can access to change setting values while playing
+  - a "secret" debug input box I can access to change setting values while playing
 - at least two different varieties of enemies
   - one or all enemies fly in patterns instead of move down/move up/move closer
   - enemies fire bullets back at random
