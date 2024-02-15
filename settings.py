@@ -7,6 +7,13 @@ class Settings:
     """a class to store all settings for alien invasion"""
     def __init__(self):
         """initialize game's [static] settings."""
+        
+        self.initialize_dynamic_settings()
+        self.load_settings_from_json("settings.json")
+        
+
+
+        
         # screen settings
         self.screen_width = 1200
         self.screen_height = 800
@@ -36,15 +43,15 @@ class Settings:
         self.score_scale = 1.5
         
         
-        self.initialize_dynamic_settings()
+        #self.initialize_dynamic_settings()
         
-        
+                
         # fleet direction 1 represents right; -1 represents left
         #self.fleet_direction = 1
         
     def initialize_dynamic_settings(self):
         """initialize settinsg that change throughout the game"""
-        self.ship_speed = 4.5
+        self.ship_speed = 4.5 # 4.5 seems like a good setting
         self.bullet_speed = 2.5
         self.alien_speed = 1.0
         
@@ -64,11 +71,40 @@ class Settings:
         #print(self.alien_points)
 
 #### this is some settings/json code i got from chatgpt 15 feb 2024 (not in book)
-#### a lot less code than I thought, actually
+#### a lot less code than I thought, actually - well i had to re-write it. 
+#### after all that copy/pasting i just couldn't delete below
+
+
+
+
+    def load_settings_from_json(self, filename):
+        """Load settings from settings.json if it exists."""
+        if os.path.exists(filename):
+            try:
+                with open(filename, 'r') as file:
+                    settings_dict = json.load(file)
+                    
+                for key, value in settings_dict.items():
+                    setattr(self, key, value)
+                self.initialize_dynamic_settings()
+            except Exception as e:
+                print(f"Error loading settings from JSON file: {e}")
+        else:
+            print(f"Settings JSON file not found. Using default settings.")
+            self.initialize_dynamic_settings()
 
 
     def save_settings_to_json(self, filename):
-        """Save settings to a JSON file."""
+        """Save settings to settings.json."""
+        settings_dict = self.__dict__
+        with open(filename, 'w') as file:
+            json.dump(settings_dict, file)
+
+
+
+    '''
+    def save_settings_to_json(self, filename):
+        #"""Save settings to a JSON file."""
         settings_dict = {
             "screen_width": self.screen_width,
             "screen_height": self.screen_height,
@@ -92,7 +128,7 @@ class Settings:
             json.dump(settings_dict, file)
             
     def load_settings_from_json(self, filename):
-        """Load settings from a JSON file."""
+        #"""Load settings from a JSON file."""
         if os.path.exists(filename):
             try:
                 with open(filename, 'r') as file:
@@ -102,8 +138,25 @@ class Settings:
                 self.screen_height = settings_dict.get("screen_height", self.screen_height)
                 self.bg_color = tuple(settings_dict.get("bg_color", self.bg_color))
                 self.ship_limit = settings_dict.get("ship_limit", self.ship_limit)
+                self.bullet_width = settings_dict.get("bullet_width", self.bullet_width)
+                self.bullet_height = settings_dict.get("bullet_height", self.bullet_height)
+                self.bullet_color = settings_dict.get("bullet_color", self.bullet_color)
+                self.bullets_allowed = settings_dict.get("bullets_allowed", self.bullets_allowed)
+                self.fleet_drop_speed = settings_dict.get("fleet_drop_speed", self.fleet_drop_speed)
+                self.fleet_ship_spacing = settings_dict.get("fleet_ship_spacing", self.fleet_ship_spacing)
+                self.speedup_scale = settings_dict.get("speedup_scale", self.speedup_scale)
+                self.score_scale = settings_dict.get("score_scale", self.score_scale)
+                self.ship_speed = settings_dict.get("ship_speed", self.ship_speed)
+                self.bullet_speed  = settings_dict.get("bullet_speed", self.bullet_speed)
+                self.alien_speed = settings_dict.get("alien_speed", self.alien_speed)
+                self.fleet_direction = settings_dict.get("fleet_direction", self.fleet_direction)
+                self.alien_points = settings_dict.get("alien_points", self.alien_points)
+                
+
+                
                 # Update other settings similarly
             except Exception as e:
                 print(f"Error loading settings from JSON file: {e}")
         else:
             print("Settings JSON file not found. Using default settings.")
+    '''

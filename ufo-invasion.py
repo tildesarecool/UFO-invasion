@@ -47,7 +47,7 @@ class UFOInvasion:
         
         ##### I added this related to the additional save/load settings in settings.py
         ##### which I got from chatgpt - 15 feb 2024
-        if os.path.exists("settings.json") == False:
+        if not os.path.exists("settings.json"):
             try:
                 self.settings.save_settings_to_json("settings.json")
             except Exception as e:

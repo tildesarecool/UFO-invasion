@@ -14,7 +14,7 @@ Adaption (attempted?) of "Python Crash Course" chapter 12 to be horizontal shmup
 Stretch/dream/at the end goals:
 - music, sound effects
 - save settings to JSON file/load settings from JSON file
- **complete:** ```much more straight forward to implement than I thought. Keep in mind I haven't fully tested all "edge cases" around this feature.```
+ **complete:** ```Just when I thought I was done I ended up pretty much re-writing it. But it seems to be working as I intended now (pending additional testing).```
   - a settings menu in-game where things like sound volume and resolution could be set
   - a "secret" debug input box I can access to change setting values while playing
 - at least two different varieties of enemies
