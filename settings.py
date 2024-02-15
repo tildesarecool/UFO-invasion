@@ -98,7 +98,7 @@ class Settings:
         """Save settings to settings.json."""
         settings_dict = self.__dict__
         with open(filename, 'w') as file:
-            json.dump(settings_dict, file)
+            json.dump(settings_dict, file, indent=4)
 
 
 
