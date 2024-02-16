@@ -1,3 +1,20 @@
+'''
+This should probably universal reference at this point
+
+The Rect object has several virtual attributes which can be used to move and align the Rect:
+x,y
+top, left, bottom, right
+topleft, bottomleft, topright, bottomright
+midtop, midleft, midbottom, midright
+center, centerx, centery
+size, width, height
+w,h
+
+All of these attributes can be assigned to: 
+rect1.right = 10
+rect2.center = (20,30)
+'''
+
 import pygame
 from pygame.sprite import Sprite
 
