@@ -206,7 +206,7 @@ class UFOInvasion:
         alien = Alien(self) # just creating first alien at that original position defined in alien.py
         alien_height = alien.rect.height # just the height of the alien so we have it for later
         alien_fleet_spacing = alien.rect.height * 2
-                
+        
         # I rcreated the self.settings.fleet_ship_spacing as a variable in settings.py
         # so i could easily adjust it like everything else - note: 10px might be too much
         current_y = alien.y - self.settings.fleet_ship_spacing 
