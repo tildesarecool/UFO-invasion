@@ -54,7 +54,7 @@ self.aliensGroup.add(new_alien, sec_alien, third_alien)
 self.aliensGroup.draw(self.screen)
 ```
 
-So in the first attempt I must have been inadvertently also sending the the initially created alien boject to the group as well as the generated or "spawned" aliens created in the while loop.
+So in the first attempt I must have been inadvertently also sending the the initially created alien object to the group as well as the generated or "spawned" aliens created in the while loop.
 
 Realizing this in this attempt, I created an alien but didn't add it to the group. Then I created 3 more aliens I added to the alien group invidually which were then subsequently drawn to the screen.
 
@@ -62,7 +62,7 @@ After more experimenting I was using the top of the screen and heights of the al
 
 That's when I realized I use the predefined variables provided by pygame for the top/bottom/etc part of the images. 
 
-I should note here there are both the literal PNG images I referring to as well as the assocated rectangles with each image. I only somewhat know why this image-rectangle relationship is required. Probably because a lot of these methods and pre-defined variables are only available to rectangles. That's just a minor detail in case I inadvertently refer to the rectangle of the alien etc.
+I should note here there are both the literal PNG images I am referring to as well as the assocated rectangles with each image. I only somewhat know why this image-rectangle relationship is required. Probably because a lot of these methods and pre-defined variables are only available to rectangles. That's just a minor detail in case I inadvertently refer to the rectangle of the alien etc.
 
 As it stands now in the code - pre-while-loop - I'm putting up 3 alien for the fleet all perfect aligned vertically and spaced from each other.
 
@@ -73,7 +73,6 @@ Here is the snippet to hopefully help demonstrate the point. I'm not saying this
 
   alien = Alien(self) # Never added to group/draw to screen. It's a magic/invisible alien...
   alien_height = alien.rect.height # This establishes the height of the magic alien
-  alien_fleet_spacing = alien.rect.height * 2 # initial spacing, probably not needed
   
   # I recreated the self.settings.fleet_ship_spacing as a variable in settings.py
   # so i could easily adjust it like everything else - note: 10px might be too much
@@ -130,3 +129,27 @@ I thought it was just a multi-line comment like the
 /* */ 
 used in some many other languages. 
 Improper indenting of those quotes results in the script not running. Took me a long time to learn that the hard way.
+
+---
+
+I've been copy/pasting these pre-defines into various class files (alien.py and ship.py for instance). These are accessible via rectangles. So rectangles are created from image dimensions. Or image coordinates are defined via image rectangle dimensions. Different combinations of those things. The point is these are convenient.
+
+
+```
+This should probably universal reference at this point
+
+The Rect object has several virtual attributes which can be used to move and align the Rect:
+x,y
+top, left, bottom, right
+topleft, bottomleft, topright, bottomright
+midtop, midleft, midbottom, midright
+center, centerx, centery
+size, width, height
+w,h
+
+
+All of these attributes can be assigned to: 
+rect1.right = 10
+rect2.center = (20,30)
+```
+

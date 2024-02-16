@@ -205,12 +205,34 @@ class UFOInvasion:
         
         alien = Alien(self) # just creating first alien at that original position defined in alien.py
         alien_height = alien.rect.height # just the height of the alien so we have it for later
-        alien_fleet_spacing = alien.rect.height * 2
+        #alien_fleet_spacing = alien.rect.height * 2
         
         # I rcreated the self.settings.fleet_ship_spacing as a variable in settings.py
         # so i could easily adjust it like everything else - note: 10px might be too much
         current_y = alien.y - self.settings.fleet_ship_spacing 
-        
+        print(f"alien.y is {alien.y} ")
+        #i = 1
+        #while i <= 4:
+        print(f"alien_height is now {alien_height} ")
+        while current_y < ( self.settings.screen_height - (alien_height * 2)  ):
+            fleet_alien = Alien(self)
+            fleet_alien.y = current_y
+            fleet_alien.rect.y = current_y
+
+            self.aliensGroup.add(fleet_alien)
+            #current_y += current_y * 2
+            current_y = fleet_alien.rect.bottom + self.settings.fleet_ship_spacing 
+            print(f"current_y is now {current_y} ")
+            print(f"self.settings.screen_heightis {self.settings.screen_height} ")
+
+            # third_alien.rect.y = sec_alien.rect.bottom + self.settings.fleet_ship_spacing 
+
+            #i += 1
+            
+
+
+        '''
+        # this was initial experiment for drawing the three aliens for the fleet
         new_alien = Alien(self)
         sec_alien = Alien(self)
         third_alien = Alien(self)
@@ -227,10 +249,10 @@ class UFOInvasion:
         #self.aliensGroup.add(alien)
         self.aliensGroup.add(new_alien, sec_alien, third_alien)
         #self.aliensGroup.add(third_alien)
-        
-        print(f"sec_alien.y is {sec_alien.y} and new alien xpos is {new_alien.xpos}")
-        print(f"current y is {current_y} and first alien xpos is {alien.xpos}")
-        print(f"sec_alien.rect.y is {sec_alien.rect.y} ")
+        '''
+        #print(f"sec_alien.y is {sec_alien.y} and new alien xpos is {new_alien.xpos}")
+        #print(f"current y is {current_y} and first alien xpos is {alien.xpos}")
+        #print(f"sec_alien.rect.y is {sec_alien.rect.y} ")
         
         
         # I remembered to call it a group this time...
