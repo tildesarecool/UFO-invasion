@@ -5,8 +5,9 @@ Adaption (attempted?) of "Python Crash Course" chapter 12 to be horizontal shmup
  - 1st step: just get the player ship up on a screen - **completed**
  - 2nd step: moving ship up/down constrained by top and bottom of window - **completed**
  - 3rd step: firing bullet across screen - **completed** ```(bullets don't delete themselves yet)```
- - 4th step: placing 1 column of aliens on screen at opposite end of window via while loop - (aliens show up, while loop pending)
+ - 4th step: placing 1 column of aliens on screen at opposite end of window via while loop - **completed** `I even did this in a while loop using a separate method call. `
  - 5th step: draw multiple columns of aliens via embedded while loops
+   - make columns move incrementally to the left towards player
  - 6th step: bullets collide with aliens, elminating each one
  - 7th step: scoring system, tracking number of tries/game restarts left
  - 8th step: a "click to play" button/pause button
