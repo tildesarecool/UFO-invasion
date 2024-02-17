@@ -38,23 +38,34 @@ class Alien(Sprite):
         # self.rect.x = self.rect.width
         # self.rect.y = self.rect.height
         #
-        # I can't believe i figured out these two lines all by myself(tm)
-        self.screen_rect = self.screen.get_rect()
-        # the extra 20 px is to make sure no part of the alien is too far to right to see on screen
-        self.xpos = self.screen_rect.width - self.rect.width - 20
-        self.rect.x = float(self.xpos) # self.screen_rect.right        
+        
+        # I'm trying some new things. so this line a a few below are moving over to 
+        # the create alien/create fleet methods in ufo-invasion.py
+        #self.screen_rect = self.screen.get_rect()
+        
+        # in alien class 'self' is 'alien' outside of said alien class...
+        # except for the screen stuff. i assume that's the window dimensions related
+        # so self.xpos is alien.xpos and self.screen_rect.width is the width gathered from the settings file
+        # via above line 
+        # self.screen = ufoinv.screen
+        # (right?)
+        #self.xpos = self.screen_rect.width - self.rect.width - 20
+        #self.rect.x = float(self.xpos) # self.screen_rect.right        
+        
+        
         # since the ship and the ship rectangle are the same and the fleet position is relative to that that is adjusted here
         # maybe i should just make this a setting? # self.fleet_ship_spacing note: see settings.py, made it a note
         # the self.settings.fleet_ship_spacing wasn't working from here so i moved the - self.settings.fleet_ship_spacing 
         # over to the _create_fleet() method in ufo-invasion
         
-        self.rect.y = self.rect.height #- self.settings.self.fleet_ship_spacing
+        
+        #self.rect.y = self.rect.height #- self.settings.self.fleet_ship_spacing
         # store the alien's exact horizontal position
         # I think what this is doing is using the width of the image rectangle
         # as the x coordinate for the screen position
         # so if the image was 100x100px the x screen coord would be 100px from the left
         # that's both clever and some how unintuitive at the same time
-        self.y = float(self.rect.y) # changed this from .x to .y
+        #self.y = float(self.rect.y) # moved this over to create fleet in main script
         # #################################################################### #
         # what would the y coord look like?
         # self.y = float(self.rect.y)

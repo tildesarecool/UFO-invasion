@@ -206,27 +206,90 @@ class UFOInvasion:
         #alien_fleet_spacing = alien.rect.height * 2
         # I rcreated the self.settings.fleet_ship_spacing as a variable in settings.py
         # so i could easily adjust it like everything else - note: 10px might be too much
+        
+        self.screen_rect = self.screen.get_rect() # make rectangle out of dimensions of window
+        
+        # these two lines create an initial x location: 
+        # (window width - 1200) - (width of alien rectangle, 58) - 20 = 1122 - if my numbers are right - 78px in from right
+        alien.xpos = self.screen_rect.width - alien.rect.width - 20
+        # the x of the alien rectangle is equal to the result of the xpos calculation
+        alien.rect.x = float(alien.xpos) 
+        alien.x = alien.rect.x 
+        
+        # now i'll do the height/y side of it
+        # the alien is as far down from the top of the window as the alien image is high
+        # since the alien is 58 pixels high, it'd be 58px down from the top
+        # setting rectangle first
+        alien.rect.y = alien.rect.height
+        # so the alien y coord is now the same as the y coord of the alien rectangle
+        alien.y = float(alien.rect.y) 
+        
+        
+        print(f"alien.y is now {alien.y} ")
+        print(f"alien.x is {alien.x}")
+        #breakpoint()
+        
+        # for this first column x will be the same for all of them, it's only y that has to be 
+        # re-calculated
+        
+# so the x of the alien should be 78px in from the right side of the screen
+# and the y of the alien as of now at least should be an height's worth of pixels down from the top of screen
+        
+        # so current y takes that y position and implents that ship space
+        # although maybe that should be a plus?
         current_y = alien.y - self.settings.fleet_ship_spacing 
+        current_x = alien.x
         print(f"current_y is {current_y} ")
+        # this "debugging" while loop did produce the 4 aliens for the fleet, i can swap back other one 
         #i = 1
-        #while i <= 4:
+        #while i <= 9:
         print(f"alien_height is now {alien_height} ")
+        print(f"current_y is {current_y} and self.settings.screen_height - (alien_height * 2)   is now {self.settings.screen_height - (alien_height * 2)  } ")
+        #breakpoint()
+
+        # this should be the good while loop. changing it briefly for troubleshooting
+        #      current y starts at 38 -  should be 800     height is 58 * 2 = 116 eg 800 - 116 = 644
         while current_y < ( self.settings.screen_height - (alien_height * 2)  ):
             # switching over to using _create_alien() method
             #self._create_alien(current_y)
-            my_alien = self._create_alien(self.settings.screen_height - (alien_height * 2))
+            #my_alien = self._create_alien(self.settings.screen_height - (alien_height * 2))
+            #   first time through loop sending 38 to create alien method (as float)
+            my_alien = self._create_alien(current_y, current_x)
+            #breakpoint()
             print(f"my_alien is {my_alien}")
-            #current_y = alien.rect.bottom + self.settings.fleet_ship_spacing 
-            print(f"current_y is now {current_y} ")
+            #print(f"my_alien.y is {my_alien.y}")
+            #my_alien.y
+# now i'll re-assign current_y to value of the prior alien (subtract ship spacing)
+# I've implmented this differently: create_alien returns it's rect.bottom 
+
+# so this "should" spawn a new alien each time through the loop make current_y (add that alien bottom + ship spacing)
+# and send that new current_y back into the create_ alien to repeat once more
+# issue is apparently it's not retain the alien x each time through the loop so the x is upper right corner (or something?)
+# - i ended up just making create_alien take in both x and y and defining x to send in to the create_alien
+# this appears to have worked for alien one once again, now i'd like to produce 3 or 4 aliens as I did previously with
+# the while loop before swapping back to conditions based on screen height nevermind adding in additional columns
+            current_y = my_alien + self.settings.fleet_ship_spacing 
+            print(f"current_y with adding my alien and ship spacing is is now {current_y} ")
+            #breakpoint()
             #print(f"self.settings.screen_heightis {self.settings.screen_height} ")
             # third_alien.rect.y = sec_alien.rect.bottom + self.settings.fleet_ship_spacing 
-            break
+            #i += 1
+            #break
 
-    def _create_alien(self, y_position):
+    def _create_alien(self, current_y, current_x):
         """ Create an alien and place it in the row """
         fleet_alien = Alien(self)
-        fleet_alien.y = y_position
-        fleet_alien.rect.y = y_position
+        fleet_alien.y = current_y
+        print(f"current_y of fleet_alien is {fleet_alien.y}")
+        #fleet_alien.rect.
+        #alien.rect.y = alien.rect.height
+        fleet_alien.rect.y = current_y
+        print(f"fleet_alien.rect.y is {fleet_alien.rect.y}")
+        
+        fleet_alien.rect.x = current_x
+        fleet_alien.x = current_x
+        
+        #breakpoint()
         self.aliensGroup.add(fleet_alien)
         return fleet_alien.rect.bottom
 
