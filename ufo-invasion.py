@@ -291,6 +291,9 @@ class UFOInvasion:
         
         #breakpoint()
         self.aliensGroup.add(fleet_alien)
+        # could I just return the fleet alien itself? so I can access the bottom and left sides
+        # from other loop? or just return fleet_alien.rect?
+        #fleet_alien.rect
         return fleet_alien.rect.bottom
 
     def _update_screen(self):
