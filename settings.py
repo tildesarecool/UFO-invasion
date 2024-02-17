@@ -10,10 +10,7 @@ class Settings:
         
         self.initialize_dynamic_settings()
         self.load_settings_from_json("settings.json")
-        
 
-
-        
         # screen settings
         self.screen_width = 1200
         self.screen_height = 800
@@ -35,16 +32,13 @@ class Settings:
         # the _create_fleet() method in ufo-invasion.py
         self.fleet_ship_spacing = 20
         
-        
         # how quickly the game speeds up 
         self.speedup_scale = 1.1
         
         # How quickly the alien point values increase 
         self.score_scale = 1.5
         
-        
         #self.initialize_dynamic_settings()
-        
                 
         # fleet direction 1 represents right; -1 represents left
         #self.fleet_direction = 1

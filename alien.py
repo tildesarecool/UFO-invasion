@@ -42,7 +42,6 @@ class Alien(Sprite):
         self.screen_rect = self.screen.get_rect()
         # the extra 20 px is to make sure no part of the alien is too far to right to see on screen
         self.xpos = self.screen_rect.width - self.rect.width - 20
-        
         self.rect.x = float(self.xpos) # self.screen_rect.right        
         # since the ship and the ship rectangle are the same and the fleet position is relative to that that is adjusted here
         # maybe i should just make this a setting? # self.fleet_ship_spacing note: see settings.py, made it a note

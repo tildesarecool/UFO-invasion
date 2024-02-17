@@ -193,7 +193,6 @@ class UFOInvasion:
         # create an alien and keep adding aliens until there's no room left
         # spacing between aliens is one alien width and one alien height
         # make an alien
-        
         # in my experimenting i was skipping some steps for troubleshooting -
         # i wanted to just added lots of aliens and skip the while loop to show just one at a time
         # but also skipped adding aliens to alienGroup
@@ -202,36 +201,34 @@ class UFOInvasion:
         # these two lines
         # self.aliensGroup.add(alien)
         # self.aliensGroup.add(new_alien)
-        
         alien = Alien(self) # just creating first alien at that original position defined in alien.py
         alien_height = alien.rect.height # just the height of the alien so we have it for later
         #alien_fleet_spacing = alien.rect.height * 2
-        
         # I rcreated the self.settings.fleet_ship_spacing as a variable in settings.py
         # so i could easily adjust it like everything else - note: 10px might be too much
         current_y = alien.y - self.settings.fleet_ship_spacing 
-        print(f"alien.y is {alien.y} ")
+        print(f"current_y is {current_y} ")
         #i = 1
         #while i <= 4:
         print(f"alien_height is now {alien_height} ")
         while current_y < ( self.settings.screen_height - (alien_height * 2)  ):
-        
             # switching over to using _create_alien() method
-            self._create_alien(current_y)
-            current_y = alien.rect.bottom + self.settings.fleet_ship_spacing 
+            #self._create_alien(current_y)
+            my_alien = self._create_alien(self.settings.screen_height - (alien_height * 2))
+            print(f"my_alien is {my_alien}")
+            #current_y = alien.rect.bottom + self.settings.fleet_ship_spacing 
             print(f"current_y is now {current_y} ")
             #print(f"self.settings.screen_heightis {self.settings.screen_height} ")
-
             # third_alien.rect.y = sec_alien.rect.bottom + self.settings.fleet_ship_spacing 
+            break
 
-            #i += 1
-            
     def _create_alien(self, y_position):
         """ Create an alien and place it in the row """
         fleet_alien = Alien(self)
         fleet_alien.y = y_position
         fleet_alien.rect.y = y_position
         self.aliensGroup.add(fleet_alien)
+        return fleet_alien.rect.bottom
 
     def _update_screen(self):
         """update images on screen and flip to the new screen"""        
@@ -243,10 +240,7 @@ class UFOInvasion:
         self.ship.blitme()
         self.aliensGroup.draw(self.screen) # draw is alien group method
         pygame.display.flip()
-    
-    
-        
-        
+
 if __name__ == '__main__':
     
     # Make a game instance, and run the game
