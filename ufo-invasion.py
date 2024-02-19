@@ -264,13 +264,13 @@ class UFOInvasion:
             #        while current_x < (self.settings.screen_width - (alien_width * 3) ):  # current_x defined above: float(self.screen_rect.width - alien_width - 20) 
 
                     #print(f"self.settings.screen_width // 2 is {self.settings.screen_width // 2} ")
-        breakpoint()
+        #breakpoint()
         #i = 4
         #while i > 0:
         alien_counter = 1
-        while current_x >= (self.settings.screen_width // 2) : #alien.x - (alien_width * 3):
+        while current_x >= float(self.settings.screen_width // 3) : #alien.x - (alien_width * 3):
             #pass
-            while current_y < ( self.settings.screen_height - (alien_height * 2)  ):
+            while current_y < ( self.settings.screen_height - (alien_height * 3)  ):
                 print(f"value of alien_counter is {alien_counter}")
                 # switching over to using _create_alien() method
                 #self._create_alien(current_y)
@@ -295,10 +295,10 @@ class UFOInvasion:
             
             print(f"alien.y is {alien.y}")
             current_y = alien.y# - self.settings.fleet_ship_spacing  # outer while my_alien[0] - self.settings.fleet_ship_spacing # 
-            current_x = my_alien[1] - (alien_width * 1.5)  - self.settings.fleet_ship_spacing  
+            current_x = my_alien[1] # - (alien_width * 1.5) # - self.settings.fleet_ship_spacing  
 
             print(f"out while after changing current_x/y, current_x is {current_x} and current_y is {current_y}")
-            breakpoint()
+            #breakpoint()
             
 # print(f"current_y with adding my alien and ship spacing is is now {current_y} ")
                 #breakpoint()
@@ -314,13 +314,13 @@ class UFOInvasion:
         fleet_alien = Alien(self)
 
         # alien spacing from top of screen e.g. top = 0
-        fleet_alien.rect.y = current_y + fleet_alien.rect.height + self.settings.fleet_ship_spacing
-        fleet_alien.y = fleet_alien.rect.y 
+        fleet_alien.rect.y = current_y + (fleet_alien.rect.height // 3) + self.settings.fleet_ship_spacing
+        fleet_alien.y = float(fleet_alien.rect.y )
 
         
         # alien spacing from right side of screen e.g. subtract from total width of screen
         fleet_alien.rect.x  = current_x - fleet_alien.rect.width - self.settings.fleet_ship_spacing
-        fleet_alien.x = fleet_alien.rect.x  
+        fleet_alien.x = float(fleet_alien.rect.x  )
         
         
         print(f"inside alien_create, fleet_alien.y of fleet_alien is {fleet_alien.y} and fleet_alien.rect.y is {fleet_alien.rect.y}")

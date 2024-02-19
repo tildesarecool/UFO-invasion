@@ -30,7 +30,7 @@ class Settings:
         
         # this i came up with all on my own - see settings.py and 
         # the _create_fleet() method in ufo-invasion.py
-        self.fleet_ship_spacing = 20
+        self.fleet_ship_spacing = 15
         
         # how quickly the game speeds up 
         self.speedup_scale = 1.1
