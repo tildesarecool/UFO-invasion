@@ -230,6 +230,15 @@ class UFOInvasion:
 # and the y of the alien as of now at least should be an height's worth of pixels down from the top of screen
         # so current y takes that y position and implents that ship space
         # although maybe that should be a plus?
+        
+        # I've decided I'm going to re-do have the intial x and y are formulated
+        # instead of doing it based on imaginary alien I'll just find a location and do it relative to that instead
+        # i could do the x calculation from within the _create_alien() method. that'd be the the intial x of the first alien
+        # then inside _create_alien() use grab the alien width. that seems like better idea
+        # i just need that initial alien to get the width of the alien image. i assume.
+        # so i could use the alien along with .right for the x. the right edge is at the screen width value in other words.
+        # then in _create_alien() 
+        
         current_y = alien.y - self.settings.fleet_ship_spacing 
         current_x = alien.x
         print(f"current_y is {current_y} ")
@@ -245,7 +254,12 @@ class UFOInvasion:
         print(f"alien.x is {alien.x} ")
         #breakpoint()
 #        while current_x < (self.settings.screen_width - (alien_width * 3) ):  # current_x defined above: float(self.screen_rect.width - alien_width - 20) 
-        while current_x <= alien.x - (alien_width * 3):
+
+        print(f"self.settings.screen_width // 2 is {self.settings.screen_width // 2} ")
+        breakpoint()
+        #i = 4
+        #while i > 0:
+        while current_x >= (self.settings.screen_width // 2): #alien.x - (alien_width * 3):
             #pass
             while current_y < ( self.settings.screen_height - (alien_height * 2)  ):
                 # switching over to using _create_alien() method
@@ -270,13 +284,14 @@ class UFOInvasion:
             
                 
             current_y = alien.y - self.settings.fleet_ship_spacing  # outer while
-            current_x = my_alien[1] - self.settings.fleet_ship_spacing  
+            current_x = my_alien[1] - (alien_width * 1.5)  - self.settings.fleet_ship_spacing  
             
 # print(f"current_y with adding my alien and ship spacing is is now {current_y} ")
                 #breakpoint()
                 #print(f"self.settings.screen_heightis {self.settings.screen_height} ")
                 # third_alien.rect.y = sec_alien.rect.bottom + self.settings.fleet_ship_spacing 
                 #i += 1
+            #i -= 1
                 #break
 
     def _create_alien(self, current_y, current_x):
