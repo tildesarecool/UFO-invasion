@@ -213,17 +213,17 @@ class UFOInvasion:
         # I'm not sure xpos is even needed. just seems like too many variables to track
         #alien.xpos = self.screen_rect.width - alien_width - 20
         # the x of the alien rectangle is equal to the result of the xpos calculation
-        alien.rect.x = float(self.screen_rect.width - alien_width - 20) 
-        alien.x = alien.rect.x 
+                    #alien.rect.x = float(self.screen_rect.width - alien_width - 20) 
+                    #alien.x = alien.rect.x 
         # now i'll do the height/y side of it
         # the alien is as far down from the top of the window as the alien image is high
         # since the alien is 58 pixels high, it'd be 58px down from the top
         # setting rectangle first
-        alien.rect.y = alien.rect.height
+                    #alien.rect.y = alien.rect.height
         # so the alien y coord is now the same as the y coord of the alien rectangle
-        alien.y = float(alien.rect.y) 
-        print(f"alien.y is now {alien.y} ")
-        print(f"alien.x is {alien.x}")
+                    #alien.y = float(alien.rect.y) 
+                    #print(f"alien.y is now {alien.y} ")
+                    #print(f"alien.x is {alien.x}")
         # for this first column x will be the same for all of them, it's only y that has to be 
         # re-calculated
 # so the x of the alien should be 78px in from the right side of the screen
@@ -239,29 +239,39 @@ class UFOInvasion:
         # so i could use the alien along with .right for the x. the right edge is at the screen width value in other words.
         # then in _create_alien() 
         
-        current_y = alien.y - self.settings.fleet_ship_spacing 
-        current_x = alien.x
-        print(f"current_y is {current_y} ")
-        # this "debugging" while loop did produce the 4 aliens for the fleet, i can swap back other one 
-        #i = 1
-        #while i <= 9:
-        print(f"alien_height is now {alien_height} ")
-        print(f"current_y is {current_y} and self.settings.screen_height - (alien_height * 2)   is now {self.settings.screen_height - (alien_height * 2)  } ")
-        # this should be the good while loop. changing it briefly for troubleshooting
-        #      current y starts at 38 -  should be 800     height is 58 * 2 = 116 eg 800 - 116 = 644
-        print(f"alien.x - (alien_width * 3) is {alien.x - (alien_width * 3)}")
-        print(f"current_x is {current_x} ")
-        print(f"alien.x is {alien.x} ")
-        #breakpoint()
-#        while current_x < (self.settings.screen_width - (alien_width * 3) ):  # current_x defined above: float(self.screen_rect.width - alien_width - 20) 
+#        current_y = alien.y - self.settings.fleet_ship_spacing 
+#        current_x = alien.x
+        current_y = self.screen_rect.top# - alien.height
+        current_x = self.screen_rect.right  - self.settings.fleet_ship_spacing
+        
+        alien.rect.y = current_y
+        alien.y = current_y
+        
+        alien.rect.x = current_x
+        alien.x = current_x
+                    #print(f"current_y is {current_y} ")
+                    # this "debugging" while loop did produce the 4 aliens for the fleet, i can swap back other one 
+                    #i = 1
+                    #while i <= 9:
+                    #print(f"alien_height is now {alien_height} ")
+                    #print(f"current_y is {current_y} and self.settings.screen_height - (alien_height * 2)   is now {self.settings.screen_height - (alien_height * 2)  } ")
+                    # this should be the good while loop. changing it briefly for troubleshooting
+                    #      current y starts at 38 -  should be 800     height is 58 * 2 = 116 eg 800 - 116 = 644
+                    #print(f"alien.x - (alien_width * 3) is {alien.x - (alien_width * 3)}")
+                    #print(f"current_x is {current_x} ")
+                    #print(f"alien.x is {alien.x} ")
+                    #breakpoint()
+            #        while current_x < (self.settings.screen_width - (alien_width * 3) ):  # current_x defined above: float(self.screen_rect.width - alien_width - 20) 
 
-        print(f"self.settings.screen_width // 2 is {self.settings.screen_width // 2} ")
+                    #print(f"self.settings.screen_width // 2 is {self.settings.screen_width // 2} ")
         breakpoint()
         #i = 4
         #while i > 0:
-        while current_x >= (self.settings.screen_width // 2): #alien.x - (alien_width * 3):
+        alien_counter = 1
+        while current_x >= (self.settings.screen_width // 2) : #alien.x - (alien_width * 3):
             #pass
             while current_y < ( self.settings.screen_height - (alien_height * 2)  ):
+                print(f"value of alien_counter is {alien_counter}")
                 # switching over to using _create_alien() method
                 #self._create_alien(current_y)
                 #my_alien = self._create_alien(self.settings.screen_height - (alien_height * 2))
@@ -279,12 +289,16 @@ class UFOInvasion:
     # - i ended up just making create_alien take in both x and y and defining x to send in to the create_alien
     # this appears to have worked for alien one once again, now i'd like to produce 3 or 4 aliens as I did previously with
     # the while loop before swapping back to conditions based on screen height nevermind adding in additional columns
-                current_y = my_alien[0] + self.settings.fleet_ship_spacing # inner while
-            
-            
+                current_y = my_alien[0] # 0 = my_alien bottom #+ self.settings.fleet_ship_spacing # inner while
+                alien_counter += 1
                 
-            current_y = alien.y - self.settings.fleet_ship_spacing  # outer while
+            
+            print(f"alien.y is {alien.y}")
+            current_y = alien.y# - self.settings.fleet_ship_spacing  # outer while my_alien[0] - self.settings.fleet_ship_spacing # 
             current_x = my_alien[1] - (alien_width * 1.5)  - self.settings.fleet_ship_spacing  
+
+            print(f"out while after changing current_x/y, current_x is {current_x} and current_y is {current_y}")
+            breakpoint()
             
 # print(f"current_y with adding my alien and ship spacing is is now {current_y} ")
                 #breakpoint()
@@ -296,22 +310,28 @@ class UFOInvasion:
 
     def _create_alien(self, current_y, current_x):
         """ Create an alien and place it in the row """
+        #spawn an alien
         fleet_alien = Alien(self)
-        fleet_alien.y = current_y
-        print(f"current_y of fleet_alien is {fleet_alien.y}")
-        #fleet_alien.rect.
-        #alien.rect.y = alien.rect.height
-        fleet_alien.rect.y = current_y
-        print(f"fleet_alien.rect.y is {fleet_alien.rect.y}")
+
+        # alien spacing from top of screen e.g. top = 0
+        fleet_alien.rect.y = current_y + fleet_alien.rect.height + self.settings.fleet_ship_spacing
+        fleet_alien.y = fleet_alien.rect.y 
+
         
-        fleet_alien.rect.x = current_x
-        fleet_alien.x = current_x
+        # alien spacing from right side of screen e.g. subtract from total width of screen
+        fleet_alien.rect.x  = current_x - fleet_alien.rect.width - self.settings.fleet_ship_spacing
+        fleet_alien.x = fleet_alien.rect.x  
         
+        
+        print(f"inside alien_create, fleet_alien.y of fleet_alien is {fleet_alien.y} and fleet_alien.rect.y is {fleet_alien.rect.y}")
+        print(f"inside alien_create, fleet_alien.x of fleet_alien is {fleet_alien.x} and fleet_alien.rect.x is {fleet_alien.rect.x}")
+        #print(f"fleet_alien.rect.y is {fleet_alien.rect.y}")
         #breakpoint()
         self.aliensGroup.add(fleet_alien)
         # could I just return the fleet alien itself? so I can access the bottom and left sides
         # from other loop? or just return fleet_alien.rect?
         #fleet_alien.rect
+        print(f"fleet_alien.rect.bottom is {fleet_alien.rect.bottom} and fleet_alien.rect.left is {fleet_alien.rect.left}")
         return fleet_alien.rect.bottom, fleet_alien.rect.left
 
     def _update_screen(self):
