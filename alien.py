@@ -78,12 +78,6 @@ class Alien(Sprite):
         return (self.rect.top <= 0) or (self.rect.bottom >= screen_rect.bottom)
         
     # this method was added for the "make the fleet move" section
-########### this is the original/left right version. I'm going to make a new version and leave it commented out until it's needed
-#    def update(self):
-#        """move the alien to the right"""
-#        self.x += self.settings.alien_speed * self.settings.fleet_direction # not sure if these settings.py variables are getting picked up or not
-#        self.rect.x = self.x
-        
 
 ############ re-done version for vertical playing
     # ok all i changed was self.x to self.y...but maybe that's all that's needed
