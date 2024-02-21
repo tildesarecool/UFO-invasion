@@ -24,8 +24,28 @@ Stretch/dream/at the end goals:
 
 ## The Good, Bad and/or Newest news
 
-I was working on the while loop to draw in the fleet of aliens and now I think I understand
-a lot more how the whole algo for doing that works.
+After many, many more iterations and I don't know how many hours of work I managed to get a column aliens to ship as the "fleet". This was done with the fleet and create alien methods. I was still using an invisible spawned alien for the task though.
+
+Then, I worked on creating multiple columns of aliens with a second while loop. I arbitrarily decided to make the columns of aliens take up two-thirds of the game window, resulting in more aliens on screen than the book version of the game. Since I put in an "alien tracker" variable to count how many aliens I have total I might have to limit the total number of columns to not make this game too over the top with the effing aliens.
+
+Long story short I managed to spawn mutliple columns of aliens using the top/left predefined variables of the alien objects along witht he top/bottom of the screen. 
+
+After doing this, I found a [youtube video with this same functionality](https://youtu.be/mqz1_wRSMwo?si=6cMv9G3c1mD_6JAI&t=404) but accomplished in a much easier and straightforward sort of a way. Which is kind of infuriating. Part of me wants to just switch from while loops to for loops now, like in the video. But this would make re-following the book that much difficult. Also the video uses a sprite sheet, which looked like a much better approach to me.
+
+So to summarize the approach I have right now to spawning the fleet of aliens: create an instance of an Alien and set its x and y coordinates. 
+
+Then, using those coordinates as a reference point, start spawning a column aliens. When the right of one alien gets too close to the bottom of the window adjust the x coordinate and spawn a new column.
+
+Keep making columns until x is 2/3 or so of the screen from the right. 
+
+I was trying to figure out how to do this without spawning the initial invisible alien but ended up just falling back to this way. Before I saw the video. 
+
+
+---
+
+## Old news
+
+I was working on the while loop to draw in the fleet of aliens and now I think I understand a lot more how the whole algo for doing that works.
 
 I actually took a little different approach. At least that's what I'm telling myself.
 
@@ -37,11 +57,12 @@ This is still in a very still-in-development sort of a state at the moment, but 
 
 Actually, unless I'm misunderstanding (which is possible) the Crash Course book is approaching this coordinates of the fleet ships thing kind of oddly.
 
+
 ---
 
 It occured to me I should probably describe in more detail what I did with the fleet code so far, _before_ I start changing it with a while loop.
 
-I went through multiple iterations of trying to figure this out. The last time I had attempted this re-write-as-horizontal I as having an issue with an extra alien showing up unaligned with the aliens associated with the fleet and I couldn't figure out why that was.
+I went through multiple iterations of trying to figure this out. The last time I had attempted this re-write-as-horizontal I was having an issue with an extra alien showing up unaligned with the aliens associated with the fleet and I couldn't figure out why that was.
 
 This time I think I did figure this out: firstly the alien images/objects are added to this group via a method with pygame, like this:
 
@@ -112,7 +133,8 @@ Here is the snippet to hopefully help demonstrate the point. I'm not saying this
 
 ```
 
-## Old news
+---
+
 The script actually runs now. Took me a while to even get that far.
 
 Bad news though i can't control the ship any more, the bullets don't fire and the fleet start at the top and moves down instead of at the right and move left. 
