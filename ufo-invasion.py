@@ -334,9 +334,29 @@ class UFOInvasion:
         print(f"fleet_alien.rect.bottom is {fleet_alien.rect.bottom} and fleet_alien.rect.left is {fleet_alien.rect.left}")
         return fleet_alien.rect.bottom, fleet_alien.rect.left
     
+    def _check_fleet_edges(self):
+        """respond appropriately if any aliens have reached an edge"""
+        for alien in self.aliensGroup.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                break
+            
+    def _change_fleet_direction(self):
+        """drop the entire fleet and change the fleet's direction (move left)"""
+        for alien in self.aliensGroup.sprites(): # forgot to change to aliensGroup. again.
+            #alien.rect.y += self.settings.fleet_drop_speed
+            # just changed this to x
+            # also, this should be moving to left/towards 0 so changed to -= insted of +=
+            alien.rect.x -= self.settings.fleet_drop_speed # moving left would be negative as it'd be moving toward 0. right?
+        
+        # fleet movement working but going to right instead of left - changed this from -1 to 1...
+        # okay this as postive 1 is very strange/unexpected result. I almost like it. don't do that.
+        self.settings.fleet_direction *= -1 
+    
     def _update_aliens(self):
         """update the positions of all aliens in the fleet"""
                 # for later - self._check_fleet_edges()
+        self._check_fleet_edges()
         #self.aliens.update() # <-- changed name of alien group to "aliensGroup" so i know what it is!
         self.aliensGroup.update()
         

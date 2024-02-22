@@ -48,7 +48,11 @@ class Settings:
         self.alien_speed = 1.0
         
         # this is all relative to y position. 
-        # since "top" of window = 0, +1 is away from top e.g. "down and -1 is towards top. or "up"
+        # since "top" of window = 0, +1 is away from top e.g. "down 
+        # and -1 is towards top. or "up"
+        
+        # as 1 from top/bottom version of this the fleet is moving right instead of left
+        # changing this to a -1 results is: same. moving right
         self.fleet_direction = 1
         
         # scoring settings

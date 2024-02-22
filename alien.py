@@ -75,7 +75,8 @@ class Alien(Sprite):
         screen_rect = self.screen.get_rect() # this is how you grab the screen so all the predefined bottom/top/right/bottomright predefines work
         #return (self.rect.right >= screen_rect.right) or (self.rect.left <= 0)
         # this should be related to where the alien can go in the y dimension, so I'm adusting it
-        return (self.rect.top <= 0) or (self.rect.bottom >= screen_rect.bottom)
+        # i think this way instead comparing against 0 is mroe readable probably
+        return (self.rect.top <= screen_rect.top) or (self.rect.bottom >= screen_rect.bottom)
         
     # this method was added for the "make the fleet move" section
 
@@ -85,12 +86,12 @@ class Alien(Sprite):
         """ move alien(s) up/down screen """
         # i think this below is the version the game eventualy ends up with
         # but since i'm following chapter 13 as it comes along I'm leaving it commented out
-        # until i get to that point
-        #self.y += self.settings.alien_speed * self.settings.fleet_direction
+        # until i get to that point -- turns out that point was about 2 pages later
+        self.y += self.settings.alien_speed * self.settings.fleet_direction
         
     ########################################
     # would probably help if this was y instead of x for direction. I mean technically
-        self.y += self.settings.alien_speed
+        #self.y += self.settings.alien_speed
         self.rect.y = self.y
         
 #        pass
