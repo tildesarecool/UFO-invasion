@@ -64,6 +64,7 @@ class Ship: # decided to start over for the ship class
         # store float for ship's exact horizontal position 
         self.y = float(self.rect.y)
         
+        
     def blitme(self):
         """draw the ship at its current location"""
         

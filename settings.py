@@ -25,7 +25,7 @@ class Settings:
         self.bullet_color = (60, 60, 60) # 60, 60, 60 is "dark gray" (apparently 000 = black and 255 255 255 = white)
         self.bullets_allowed = 9 # default value = 3 arbitrarily limit number of bulets on screen at once (page 251)
         # alien settings
-        #self.alien_speed = 1.0
+        self.alien_speed = 1.0 # uncommented to make following chapter 13 easier, temporory/not really needed
         self.fleet_drop_speed = 10 # default value = 10 - setting this to 100 for debug purposes
         
         # this i came up with all on my own - see settings.py and 
@@ -40,8 +40,6 @@ class Settings:
         
         #self.initialize_dynamic_settings()
                 
-        # fleet direction 1 represents right; -1 represents left
-        #self.fleet_direction = 1
         
     def initialize_dynamic_settings(self):
         """initialize settinsg that change throughout the game"""
@@ -49,7 +47,8 @@ class Settings:
         self.bullet_speed = 2.5
         self.alien_speed = 1.0
         
-        # fllet direction represents right; -1 represents left
+        # this is all relative to y position. 
+        # since "top" of window = 0, +1 is away from top e.g. "down and -1 is towards top. or "up"
         self.fleet_direction = 1
         
         # scoring settings
@@ -65,11 +64,7 @@ class Settings:
         #print(self.alien_points)
 
 #### this is some settings/json code i got from chatgpt 15 feb 2024 (not in book)
-#### a lot less code than I thought, actually - well i had to re-write it. 
-#### after all that copy/pasting i just couldn't delete below
-
-
-
+#### a lot less code than I thought, actually - well i had to re-write parts of it. 
 
     def load_settings_from_json(self, filename):
         """Load settings from settings.json if it exists."""

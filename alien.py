@@ -83,5 +83,13 @@ class Alien(Sprite):
     # ok all i changed was self.x to self.y...but maybe that's all that's needed
     def update(self):
         """ move alien(s) up/down screen """
-        self.y += self.settings.alien_speed * self.settings.fleet_direction
+        # i think this below is the version the game eventualy ends up with
+        # but since i'm following chapter 13 as it comes along I'm leaving it commented out
+        # until i get to that point
+        #self.y += self.settings.alien_speed * self.settings.fleet_direction
+        
+    ########################################
+        self.x += self.settings.alien_speed
+        self.rect.x = self.x
+        
 #        pass

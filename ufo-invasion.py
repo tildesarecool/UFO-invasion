@@ -111,7 +111,7 @@ class UFOInvasion:
             self.ship.update()
             #self.bullet.update()
             self.bulletsGroup.update() # I renamed the bullet group from "bullets" to "bulletsGroup"
-            
+            self._update_aliens()
             
             
             '''
@@ -333,6 +333,20 @@ class UFOInvasion:
         #fleet_alien.rect
         print(f"fleet_alien.rect.bottom is {fleet_alien.rect.bottom} and fleet_alien.rect.left is {fleet_alien.rect.left}")
         return fleet_alien.rect.bottom, fleet_alien.rect.left
+    
+    def _update_aliens(self):
+        """update the positions of all aliens in the fleet"""
+                # for later - self._check_fleet_edges()
+        #self.aliens.update() # <-- changed name of alien group to "aliensGroup" so i know what it is!
+        self.aliensGroup.update()
+        
+                # (for later)
+                #if pygame.sprite.spritecollideany(self.ship, self.aliens): # spritecollideany - two arguments are a sprite and a sprite group: if the self.ship group collides with aliens group...hit
+                    # print("Ship hit!!!") # this was just here for testing
+                    #self._ship_hit()
+        
+        # look for aliens hitting the bottom of the screen
+                #self._check_aliens_bottom() (for later)
 
     def _update_screen(self):
         """update images on screen and flip to the new screen"""        
