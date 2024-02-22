@@ -109,6 +109,7 @@ class UFOInvasion:
             # then _check_events() - should work the same
             self._check_events()
             self.ship.update()
+            self._update_bullets() # i think is right. now below. this is needed though
             #self.bullet.update()
             self.bulletsGroup.update() # I renamed the bullet group from "bullets" to "bulletsGroup"
             self._update_aliens()
@@ -184,6 +185,19 @@ class UFOInvasion:
         if len(self.bulletsGroup) < self.settings.bullets_allowed: 
             new_bullet = Bullet(self)
             self.bulletsGroup.add(new_bullet) # new bullet group name hits me again. only took a few minutes to find though
+            print(f"bulletgroup length is now {len(self.bulletsGroup)} (firebullet method)")
+
+    def _update_bullets(self):
+        """update position of bullets and get rid of old bullets"""
+        # update bullet position
+        self.bulletsGroup.update() # changed from "bullets" to "bulletsGroup"
+        # get rid of bullets that have disappeared - re-adjusted for right side instead of bottom
+        for bullet in self.bulletsGroup.copy(): # changed from "bullets" to "bulletsGroup"
+            # this has to changed to be right side of screen. so screen width
+#            if bullet.rect.right <= 0:
+            if bullet.rect.right >= self.screen_rect.right:
+                self.bulletsGroup.remove(bullet) # changed from "bullets" to "bulletsGroup"
+                print(f"bulletgroup length is now {len(self.bulletsGroup)} (update bullets method)")
             
 ###################################
 
