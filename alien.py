@@ -89,7 +89,8 @@ class Alien(Sprite):
         #self.y += self.settings.alien_speed * self.settings.fleet_direction
         
     ########################################
-        self.x += self.settings.alien_speed
-        self.rect.x = self.x
+    # would probably help if this was y instead of x for direction. I mean technically
+        self.y += self.settings.alien_speed
+        self.rect.y = self.y
         
 #        pass
