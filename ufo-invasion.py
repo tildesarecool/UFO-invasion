@@ -198,7 +198,19 @@ class UFOInvasion:
             if bullet.rect.right >= self.screen_rect.right:
                 self.bulletsGroup.remove(bullet) # changed from "bullets" to "bulletsGroup"
                 print(f"bulletgroup length is now {len(self.bulletsGroup)} (update bullets method)")
-            
+        # this collisions = line will be replaced but I'm using it anyway to follow
+        # pg. 267
+        collisions = pygame.sprite.groupcollide( # at least i remembered the group thing this time
+            self.bulletsGroup,# does this group collide with...
+            self.aliensGroup, # this group here
+            True, # setting this to false would make bullets destroy all aliens in their path/not delete bullet
+            True  # these trues are telling the collide method to delete the bullet/aliens in their respective groups            
+        )
+        # when this collisions variable becomes obsolete, I'll need this line below. also make this method
+        #         self._check_bullet_alien_collisions()
+
+        
+        
 ###################################
 
 
