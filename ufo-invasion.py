@@ -200,6 +200,12 @@ class UFOInvasion:
                 print(f"bulletgroup length is now {len(self.bulletsGroup)} (update bullets method)")
         # this collisions = line will be replaced but I'm using it anyway to follow
         # pg. 267
+
+        self._check_bullet_alien_collisions()
+
+    def _check_bullet_alien_collisions():
+        '''Respond to bullet-alien collisions'''
+
         collisions = pygame.sprite.groupcollide( # at least i remembered the group thing this time
             self.bulletsGroup,# does this group collide with...
             self.aliensGroup, # this group here
@@ -207,7 +213,12 @@ class UFOInvasion:
             True  # these trues are telling the collide method to delete the bullet/aliens in their respective groups            
         )
         # when this collisions variable becomes obsolete, I'll need this line below. also make this method
-        #         self._check_bullet_alien_collisions()
+
+
+        if not self.aliensGroup:
+            #temp destory existing bullets and and create new fleet
+            self.bulletsGroup.empty() # empties out any exists sprites etc in group; GROUP
+            self._create_fleet() # hopefully puts in fresh fleet
 
         
         
