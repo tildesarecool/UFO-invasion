@@ -203,13 +203,13 @@ class UFOInvasion:
 
         self._check_bullet_alien_collisions()
 
-    def _check_bullet_alien_collisions():
+    def _check_bullet_alien_collisions(self):
         '''Respond to bullet-alien collisions'''
 
         collisions = pygame.sprite.groupcollide( # at least i remembered the group thing this time
             self.bulletsGroup,# does this group collide with...
             self.aliensGroup, # this group here
-            True, # setting this to false would make bullets destroy all aliens in their path/not delete bullet
+            False, # setting this to false would make bullets destroy all aliens in their path/not delete bullet
             True  # these trues are telling the collide method to delete the bullet/aliens in their respective groups            
         )
         # when this collisions variable becomes obsolete, I'll need this line below. also make this method
@@ -397,9 +397,9 @@ class UFOInvasion:
         #self.aliens.update() # <-- changed name of alien group to "aliensGroup" so i know what it is!
         self.aliensGroup.update()
         
-                # (for later)
-                #if pygame.sprite.spritecollideany(self.ship, self.aliens): # spritecollideany - two arguments are a sprite and a sprite group: if the self.ship group collides with aliens group...hit
-                    # print("Ship hit!!!") # this was just here for testing
+# spritecollideany - two arguments are a sprite and a sprite group: if the self.ship group collides with aliens group...hit
+        if pygame.sprite.spritecollideany(self.ship, self.aliensGroup): # alienGROUP
+                    print("Ship hit!!!") # this was just here for testing
                     #self._ship_hit()
         
         # look for aliens hitting the bottom of the screen
