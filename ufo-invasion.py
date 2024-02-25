@@ -31,8 +31,7 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien # modification for chapter 13 - bringing in the alien.py stuff
 from button import Button
-#from scoreboard import Scoreboard
-#from game_events import GameEvents #  it was taking too long to figure this out so i'll come back to the idea
+from scoreboard import Scoreboard
 
 class UFOInvasion: 
     # Overall class to manage game assets and behavior 
@@ -67,6 +66,7 @@ class UFOInvasion:
         pygame.display.set_caption("UFO Invasion")
         
         self.stats = GameStats(self) # added page 272
+        self.sb = Scoreboard(self)
         
          # added this line once i had apparently finished the initial version of the Ship class/ship.py
          # also blitme() line below
@@ -166,8 +166,8 @@ class UFOInvasion:
             
             # reset the game statistics 
             self.stats.reset_stats()
-            #self.sb.prep_score() # added pg 289
-            #self.sb.prep_level() # added pg. 295
+            self.sb.prep_score() # added pg 289
+            self.sb.prep_level() # added pg. 295
             #self.sb.prep_ships()
             self.game_active = True
             # get rid of any remaining bullets and alines
@@ -231,24 +231,36 @@ class UFOInvasion:
 
 
 
-    def _check_bullet_alien_collisions(self):
-        '''Respond to bullet-alien collisions'''
+    def _check_bullet_alien_collisions(self): # this method added as part of refactoring starting on page 269
+        """respond to bullet-alien collisions"""
+        #remove any bullets and aliens that have colided
+        collisions = pygame.sprite.groupcollide( 
+                        self.bulletsGroup, 
+                        self.aliensGroup, 
+                        False, # when this is false bullets pass through aliens and keep going
+                        True 
+                        ) # added as part of bullets/collision, pg. 267
+        # per the book:
+        # for a high powered bullet that can travel to the top of screen/destroy all enemies it encounters, set the first boolean to false
+        # and keep the second boolean true.  would make that bullet active until it reached the top of the screen
+        if collisions: # if the collisions dictionary even exists
+            for aliens in collisions.values(): # go through the values in the dictionary
+                # add score by points aliens are worth times how big that alien value is
+                # also, this 'aliens' from for loop so...not group then
+                self.stats.score += self.settings.alien_points * len(aliens) 
+            self.sb.prep_score()
+            self.sb.check_high_score() # added in association with high score updates in scoreboard.py - pg. 293
 
-        collisions = pygame.sprite.groupcollide( # at least i remembered the group thing this time
-            self.bulletsGroup,# does this group collide with...
-            self.aliensGroup, # this group here
-            False, # setting this to false would make bullets destroy all aliens in their path/not delete bullet
-            True  # these trues are telling the collide method to delete the bullet/aliens in their respective groups            
-        )
-        # when this collisions variable becomes obsolete, I'll need this line below. also make this method
-
-
+        # part of spawning new fleet once fleet destroyed - pg. 268     
         if not self.aliensGroup:
-            #temp destory existing bullets and and create new fleet
-            self.bulletsGroup.empty() # empties out any exists sprites etc in group; GROUP
-            self._create_fleet() # hopefully puts in fresh fleet
-            self.settings.increase_speed() # added from chap 14/pg 285
-
+            # destroy existing bullets and create new fleet
+            self.bulletsGroup.empty()
+            self._create_fleet()
+            self.settings.increase_speed()
+            
+            # increase level - as displayed on screen, pg. 295
+            self.stats.level += 1
+            self.sb.prep_level()
         
         
 ###################################
@@ -476,6 +488,8 @@ class UFOInvasion:
         
         self.ship.blitme()
         self.aliensGroup.draw(self.screen) # draw is alien group method
+        # draw score info
+        self.sb.show_score()
         
         #draw the play button if the game is inactive
         if not self.game_active:
