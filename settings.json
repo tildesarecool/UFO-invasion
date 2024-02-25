@@ -1,7 +1,7 @@
 {
-    "ship_speed": 4.5,
+    "ship_speed": 1.5,
     "bullet_speed": 2.5,
-    "alien_speed": 5.0,
+    "alien_speed": 1.0,
     "fleet_direction": 1,
     "alien_points": 50,
     "screen_width": 1200,
@@ -20,7 +20,7 @@
         60
     ],
     "bullets_allowed": 9,
-    "fleet_drop_speed": 30,
+    "fleet_drop_speed": 10,
     "fleet_ship_spacing": 15,
     "speedup_scale": 1.1,
     "score_scale": 1.5

@@ -8,7 +8,7 @@ class Settings:
     def __init__(self):
         """initialize game's [static] settings."""
         
-        self.initialize_dynamic_settings()
+        #self.initialize_dynamic_settings()
         self.load_settings_from_json("settings.json") # changig settings here doesn't auto-change json. might have to adjust that -feb24
 
         # screen settings
@@ -38,12 +38,12 @@ class Settings:
         # How quickly the alien point values increase 
         self.score_scale = 1.5
         
-        #self.initialize_dynamic_settings()
+        self.initialize_dynamic_settings()
                 
         
     def initialize_dynamic_settings(self):
         """initialize settinsg that change throughout the game"""
-        self.ship_speed = 4.5 # 4.5 seems like a good setting
+        self.ship_speed = 1.5 # 4.5 seems like a good setting
         self.bullet_speed = 2.5
         self.alien_speed = 1.0
         
@@ -52,7 +52,7 @@ class Settings:
         # and -1 is towards top. or "up"
         
         # as 1 from top/bottom version of this the fleet is moving right instead of left
-        # changing this to a -1 results is: same. moving right
+        
         self.fleet_direction = 1
         
         # scoring settings

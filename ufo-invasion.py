@@ -30,7 +30,7 @@ from game_stats import GameStats
 from ship import Ship 
 from bullet import Bullet
 from alien import Alien # modification for chapter 13 - bringing in the alien.py stuff
-#from button import Button
+from button import Button
 #from scoreboard import Scoreboard
 #from game_events import GameEvents #  it was taking too long to figure this out so i'll come back to the idea
 
@@ -89,16 +89,22 @@ class UFOInvasion:
         
         # save these two for way later
         self._create_fleet() 
-        # self.play_button = Button(self, "Play")
-        
-        # start alien invastion in an active state
-        self.game_active = True
         
         
+        # start alien invastion in an active state - end of chapter 13
+        #self.game_active = True
+        
+        # set game to inactive state - literally first paragraph of chapter 14
+        self.game_active = False
+        
+        # make the play button
+        self.play_button = Button(self, "Play")
+        
+
         
 # This is the code for full screen, which looks terrible on my giant monitor - 
 # page 245 - after implementing it the books says (paraphrasing)
-# "but if that doesn't work good that keep the old code" - could have said that first!
+# "but if that doesn't work good then keep the old code" - could have said that first!
 #        self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 #        self.settings.screen_width = self.screen.get_rect().width
 #        self.settings.screen_height = self.screen.get_rect().height
@@ -130,24 +136,8 @@ class UFOInvasion:
             # class this in run game. it'll be defined below
             self._update_screen()
 
-            # added this blitme() method and above self.ship = Ship(self) instantiation at same time
-            # this method should draw the ship
-            # this is when i find out how important setting a specific background is...the ship showed up. 
-            # i'll do the bg thing later
-           # self.ship.blitme() # moved to update_screen
-            # about the only thing left without the other files existing - seems like part of boiler plate really
-            #pygame.display.flip()
+
             self.clock.tick(60) # related to consistent framerate - see also the self.clock line in the init function
-            # Watch for keyboard and mouse events.
-        
-        # the next step is separating the sys.exit/quit functionality 
-        # as well as eventually ship movement key events into the _check_events() method
-        # but I'd like to separate that into another file
-        # this will be a departure from the book but...here goes
-        # I'll call it game_events.py
-        
-        # now i could put the _update_screen method into a separate file too, but instead 
-        # i'll just leave in here
 
 ###################################
 
@@ -160,7 +150,36 @@ class UFOInvasion:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
 
+
+
+    def _check_play_button(self, mouse_pos):
+        """Start a new game when the player clicks Play"""
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        #if self.play_button.rect.collidepoint(mouse_pos):
+        if button_clicked and not self.game_active:
+            # reset the game settings
+            self.settings.initialize_dynamic_settings()
+            
+            # reset the game statistics 
+            self.stats.reset_stats()
+            #self.sb.prep_score() # added pg 289
+            #self.sb.prep_level() # added pg. 295
+            #self.sb.prep_ships()
+            self.game_active = True
+            # get rid of any remaining bullets and alines
+            self.bulletsGroup.empty()
+            self.aliensGroup.empty()
+            
+            # create a new fleet and center the ship
+            self._create_fleet()
+            self.ship.center_ship()
+            
+            #Hide the mouse cursor
+            pygame.mouse.set_visible(False)
 
                 
 # ################################################################ #
@@ -228,6 +247,7 @@ class UFOInvasion:
             #temp destory existing bullets and and create new fleet
             self.bulletsGroup.empty() # empties out any exists sprites etc in group; GROUP
             self._create_fleet() # hopefully puts in fresh fleet
+            self.settings.increase_speed() # added from chap 14/pg 285
 
         
         
@@ -441,10 +461,10 @@ class UFOInvasion:
             self.ship.center_ship()
             # pause
             sleep(0.5)
-        # these lines coming soon
+        
         else:
             self.game_active = False
-        #    pygame.mouse.set_visible(True)
+            pygame.mouse.set_visible(True)
     
 
     def _update_screen(self):
@@ -456,6 +476,12 @@ class UFOInvasion:
         
         self.ship.blitme()
         self.aliensGroup.draw(self.screen) # draw is alien group method
+        
+        #draw the play button if the game is inactive
+        if not self.game_active:
+            self.play_button.draw_button()
+        
+        
         pygame.display.flip()
 
 if __name__ == '__main__':
