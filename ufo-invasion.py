@@ -91,7 +91,8 @@ class UFOInvasion:
         self._create_fleet() 
         # self.play_button = Button(self, "Play")
         
-            # per the book, methods that start with a _ are "helper methods"
+        # start alien invastion in an active state
+        self.game_active = True
         
         
         
@@ -110,11 +111,14 @@ class UFOInvasion:
             # so here it's just the extra step of the instantiated GameEvents class above, events, 
             # then _check_events() - should work the same
             self._check_events()
-            self.ship.update()
-            self._update_bullets() # i think is right. now below. this is needed though
+            
+            if self.game_active:
+                self.ship.update()
+                self._update_bullets() # i think is right. now below. this is needed though
+                self._update_aliens()
             #self.bullet.update()
             self.bulletsGroup.update() # I renamed the bullet group from "bullets" to "bulletsGroup"
-            self._update_aliens()
+        
             
             
             '''
@@ -380,7 +384,7 @@ class UFOInvasion:
     def _check_aliens_left(self): # all the way right == loss (instead of bottom)
         """check if any aliens have reached the right of the screen"""
         # added pg 273/4 to check if fleet has reached bottom of screen
-        for alien in self.aliens.sprites():
+        for alien in self.aliensGroup.sprites(): #...group
 # below customized from the ship at left version; to check if aliens have passed left edge of window
             if alien.rect.left <= 0: # all the way left == 0; to spell this out: alien reaches left of screen when alien's rect.left value >= screen's width
                 self._ship_hit()
@@ -438,8 +442,8 @@ class UFOInvasion:
             # pause
             sleep(0.5)
         # these lines coming soon
-        #else:
-        #    self.game_active = False
+        else:
+            self.game_active = False
         #    pygame.mouse.set_visible(True)
     
 

@@ -6,9 +6,9 @@ Adaption (attempted?) of "Python Crash Course" chapter 12 to be horizontal shmup
  - 2nd step: moving ship up/down constrained by top and bottom of window - **completed**
  - 3rd step: firing bullet across screen - **completed** ```(bullets don't delete themselves yet)```
  - 4th step: placing 1 column of aliens on screen at opposite end of window via while loop - **completed** `I even did this in a while loop using a separate method call. `
- - 5th step: draw multiple columns of aliens via embedded while loops
-   - make columns move incrementally to the left towards player
- - 6th step: bullets collide with aliens, elminating each one
+ - 5th step: draw multiple columns of aliens via embedded while loops **completed**
+   - make columns move incrementally to the left towards player **completed**
+ - 6th step: bullets collide with aliens, elminating each one **completed**
  - 7th step: scoring system, tracking number of tries/game restarts left
  - 8th step: a "click to play" button/pause button
 
@@ -23,6 +23,27 @@ Stretch/dream/at the end goals:
   - enemies fire bullets back at random
 
 ## The Good, Bad and/or Newest news
+
+
+I've officially reached the end of chapter 13. This means The only thing left include things like buttons for the pause menu, the pause functionality, a Title screen with a start button, tracking the player score and high scores and resetting upon player losing all lives. Still necessary to be a "real" game but as it plays now it is technically a "game".
+
+Speaking of which, right now bullets travel all the way through any/all aliens they collide with and I've made the bullets commically large as part of troubleshooting.
+
+So the game is sideways alien invaders: the player fires bullets at the alien fleet, the fleet moves on the screen that to the left and upwards the over and down again. This fleet doesn't increase in speed and there's no score tracking nor lives tracked.
+
+There's an extreme amount of unnecessary comments right now so if you wanted to change the bullet setting you could.
+
+I did re-re-realize that settings had to be changed via manually editing the JSON file at the moment as I wanted that to be the definitive place for the settings. Since there's no edit-back-to-settings.py functionality, as long as that JSON exists that is what it will do.
+
+I've actually started a "project" through github associated with this repo. I have no idea if it's publically accessible or how to share it though. 
+
+I'm planning more enhancements once I get through chapter 14.
+
+---
+
+
+## Old news
+
 
 After many, many more iterations and I don't know how many hours of work I managed to get a column aliens to ship as the "fleet". This was done with the fleet and create alien methods. I was still using an invisible spawned alien for the task though.
 
@@ -40,10 +61,7 @@ Keep making columns until x is 2/3 or so of the screen from the right.
 
 I was trying to figure out how to do this without spawning the initial invisible alien but ended up just falling back to this way. Before I saw the video. 
 
-
 ---
-
-## Old news
 
 I was working on the while loop to draw in the fleet of aliens and now I think I understand a lot more how the whole algo for doing that works.
 

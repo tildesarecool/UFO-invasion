@@ -76,7 +76,7 @@ class Ship: # decided to start over for the ship class
     # this will come in much later, just prepping it so it's here. also have to re-adjust for vertical orientation
     def center_ship(self): # added book page 273 as part of resetting when alien collides with ship
         """center ship on the screen (vertical/y)"""
-        self.rect.midleft = self.screen_rect.midelft
+        self.rect.midleft = self.screen_rect.midleft
         self.y = float(self.rect.y)
         #self.x = float(self.rect.x)
     
