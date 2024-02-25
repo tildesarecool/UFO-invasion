@@ -24,9 +24,9 @@
 
 
 import sys, pygame, os
-#from time import sleep # added page 272
+from time import sleep # added page 272
 from settings import Settings # i just copy/pasted from existing settings file (last version from chapter 14). i'll go back later and adjust if necessary
-#from game_stats import GameStats
+from game_stats import GameStats
 from ship import Ship 
 from bullet import Bullet
 from alien import Alien # modification for chapter 13 - bringing in the alien.py stuff
@@ -65,6 +65,8 @@ class UFOInvasion:
             )
         )
         pygame.display.set_caption("UFO Invasion")
+        
+        self.stats = GameStats(self) # added page 272
         
          # added this line once i had apparently finished the initial version of the Ship class/ship.py
          # also blitme() line below
@@ -202,6 +204,9 @@ class UFOInvasion:
         # pg. 267
 
         self._check_bullet_alien_collisions()
+
+
+
 
     def _check_bullet_alien_collisions(self):
         '''Respond to bullet-alien collisions'''
@@ -371,6 +376,16 @@ class UFOInvasion:
         print(f"fleet_alien.rect.bottom is {fleet_alien.rect.bottom} and fleet_alien.rect.left is {fleet_alien.rect.left}")
         return fleet_alien.rect.bottom, fleet_alien.rect.left
     
+    #def _check_aliens_bottom(self):
+    def _check_aliens_left(self): # all the way right == loss (instead of bottom)
+        """check if any aliens have reached the right of the screen"""
+        # added pg 273/4 to check if fleet has reached bottom of screen
+        for alien in self.aliens.sprites():
+# below customized from the ship at left version; to check if aliens have passed left edge of window
+            if alien.rect.left <= 0: # all the way left == 0; to spell this out: alien reaches left of screen when alien's rect.left value >= screen's width
+                self._ship_hit()
+                break
+    
     def _check_fleet_edges(self):
         """respond appropriately if any aliens have reached an edge"""
         for alien in self.aliensGroup.sprites():
@@ -399,11 +414,34 @@ class UFOInvasion:
         
 # spritecollideany - two arguments are a sprite and a sprite group: if the self.ship group collides with aliens group...hit
         if pygame.sprite.spritecollideany(self.ship, self.aliensGroup): # alienGROUP
-                    print("Ship hit!!!") # this was just here for testing
-                    #self._ship_hit()
+                    #print("Ship hit!!!") # this was just here for testing
+                    self._ship_hit()
         
         # look for aliens hitting the bottom of the screen
-                #self._check_aliens_bottom() (for later)
+        self._check_aliens_left()
+                
+    def _ship_hit(self):
+        """respond to the ship being hit by an alien"""
+        if self.stats.ships_left > 0: # part of game over edits, pg 274 (also with all the indenting)
+            # method added per book pg 272
+            # and update scoreboard (pg. 298)
+            self.stats.ships_left -= 1
+            #self.sb.prep_ships() # save this for later/chap 14
+            
+            # Get rid of any remaining bullets and aliens -- GROUP
+            self.bulletsGroup.empty()
+            self.aliensGroup.empty()
+            
+            # create a new fleet and center the ship
+            self._create_fleet()
+            self.ship.center_ship()
+            # pause
+            sleep(0.5)
+        # these lines coming soon
+        #else:
+        #    self.game_active = False
+        #    pygame.mouse.set_visible(True)
+    
 
     def _update_screen(self):
         """update images on screen and flip to the new screen"""        

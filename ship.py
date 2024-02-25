@@ -72,15 +72,16 @@ class Ship: # decided to start over for the ship class
         self.screen.blit(self.image, self.rect)
         
         
-    '''
+    
     # this will come in much later, just prepping it so it's here. also have to re-adjust for vertical orientation
     def center_ship(self): # added book page 273 as part of resetting when alien collides with ship
-    """center ship on the screen (horizontal/x)"""
-    self.rect.midbottom = self.screen_rect.midbottom
-    self.x = float(self.rect.x)
+        """center ship on the screen (vertical/y)"""
+        self.rect.midleft = self.screen_rect.midelft
+        self.y = float(self.rect.y)
+        #self.x = float(self.rect.x)
     
     
-    '''
+    
     def update(self):
         """update the ship's [VERTICAL] position based on the movement flags."""
         # updat the ship's y value, not the rect
