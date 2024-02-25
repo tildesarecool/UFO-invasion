@@ -19,15 +19,16 @@ rect1.right = 10
 rect2.center = (20,30)
 '''
 import pygame
-# from pygame.sprite import Sprite # save this for later
+from pygame.sprite import Sprite # save this for later
 
 
-class Ship: # decided to start over for the ship class
+class Ship(Sprite): # decided to start over for the ship class
     """a class to manage the ship"""
     # I used ufoinv_game as substitute for ai_game in original. When creating instance of ship object "self is passed in" 
     # in original version from book
     def __init__(self, ufoinv_game): 
         """initialize the ship and set its starting position"""
+        super().__init__()
         # some how i missed that these were set in the init method
         # so it didn't work. they just belong in the init method
         self.moving_up = False

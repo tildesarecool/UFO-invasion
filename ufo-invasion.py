@@ -168,7 +168,7 @@ class UFOInvasion:
             self.stats.reset_stats()
             self.sb.prep_score() # added pg 289
             self.sb.prep_level() # added pg. 295
-            #self.sb.prep_ships()
+            self.sb.prep_ships() # from pg. 298
             self.game_active = True
             # get rid of any remaining bullets and alines
             self.bulletsGroup.empty()
@@ -462,7 +462,7 @@ class UFOInvasion:
             # method added per book pg 272
             # and update scoreboard (pg. 298)
             self.stats.ships_left -= 1
-            #self.sb.prep_ships() # save this for later/chap 14
+            self.sb.prep_ships() # save this for later/chap 14
             
             # Get rid of any remaining bullets and aliens -- GROUP
             self.bulletsGroup.empty()
