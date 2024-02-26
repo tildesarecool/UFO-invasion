@@ -1,17 +1,17 @@
-#  10 Feb 2024
-# I'm try to re-make the alien invasion game from the book "python crash course"
+#  25 Feb 2024
+# I'm trying to re-make the alien invasion game from the book "python crash course"
 # but re-factored and rotated 90 degrees to horizontal
 # I also want to add some features like sound effects/music and maybe
 # multiple stages (some of which are verticale), multiple keybindings for controls (if not custom keybindings)
 # and mutliple enemy types
 # - 1st step: just get the player ship up on a screen - completed
 # - 2nd step: moving ship up/down constrained by top and bottom of window - completed 
-#  - 3rd step: firing bullet across screen - completed (bullets don't delete themselves yet)
-#  - 4th step: placing 1 column of aliens on screen at opposite end of window via while loop - (alies show up, while loop pending)
-#  - 5th step: draw multiple columns of aliens via embedded while loops
-#  - 6th step: bullets collid with aliens, elminating each one
-#  - 7th step: scoring system, tracking number of tries/game restarts left
-#  - 8th step: a "click to play" button/pause button
+#  - 3rd step: firing bullet across screen - completed 
+#  - 4th step: placing 1 column of aliens on screen at opposite end of window via while loop - completed
+#  - 5th step: draw multiple columns of aliens via embedded while loops - completed
+#  - 6th step: bullets collid with aliens, elminating each one - completed
+#  - 7th step: scoring system, tracking number of tries/game restarts left - completed
+#  - 8th step: a "click to play" button/pause button (end of game, no pause yet - partially completed)
 
 # Stretch/dream/at the end goals:
 # - music, sound effects
@@ -68,34 +68,18 @@ class UFOInvasion:
         self.stats = GameStats(self) # added page 272
         self.sb = Scoreboard(self)
         
-         # added this line once i had apparently finished the initial version of the Ship class/ship.py
-         # also blitme() line below
+
         self.ship = Ship(self)
         
-        # departure from book for keybinds
-        # I just assumed I needed to pass it self, which is ufo invasion class
-        # just following how ship was done
-        #self.events = GameEvents(self) # i don't think this is necessary
+
 ################# boiler plate stuff ############################
 
-# some variables for later. I'll uncomment as necessary
-
-        # not anything to do yet but groups established
         self.bulletsGroup = pygame.sprite.Group() # create a group that holds the bullets - changed name to be more descriptive/less confusing
         self.aliensGroup = pygame.sprite.Group() # group to hold aliens in fleet - changed name to be more descriptive/less confusing
-        
-        #there's some early stuff or setting bg color in __init__(self) but that will end up in _update screen later (pg. 231)
-        # so I'm skipping it for (i may have to set it if i can't see the ship over the default black bg)
-        
-        # save these two for way later
+                
         self._create_fleet() 
         
-        
-        # start alien invastion in an active state - end of chapter 13
-        #self.game_active = True
-        
-        # set game to inactive state - literally first paragraph of chapter 14
-        self.game_active = False
+        self.game_active = False # this can be used for a pause menu. probably.
         
         # make the play button
         self.play_button = Button(self, "Play")
@@ -112,31 +96,16 @@ class UFOInvasion:
     def run_game(self):    
         """start the main loop for the game"""
         while True:
-            # in book it's just 
-            # self._check_events()
-            # so here it's just the extra step of the instantiated GameEvents class above, events, 
-            # then _check_events() - should work the same
+
             self._check_events()
             
             if self.game_active:
                 self.ship.update()
-                self._update_bullets() # i think is right. now below. this is needed though
+                self._update_bullets() 
                 self._update_aliens()
-            #self.bullet.update()
+
             self.bulletsGroup.update() # I renamed the bullet group from "bullets" to "bulletsGroup"
-        
-            
-            
-            '''
-            # these lines moved to game_events.py and GameEvents class
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit() # don't forget paranse in that exist method! i think i forgot that the first time as well
-            '''
-            # class this in run game. it'll be defined below
             self._update_screen()
-
-
             self.clock.tick(60) # related to consistent framerate - see also the self.clock line in the init function
 
 ###################################
@@ -159,12 +128,9 @@ class UFOInvasion:
     def _check_play_button(self, mouse_pos):
         """Start a new game when the player clicks Play"""
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
-        #if self.play_button.rect.collidepoint(mouse_pos):
         if button_clicked and not self.game_active:
-            # reset the game settings
             self.settings.initialize_dynamic_settings()
             
-            # reset the game statistics 
             self.stats.reset_stats()
             self.sb.prep_score() # added pg 289
             self.sb.prep_level() # added pg. 295
@@ -193,8 +159,6 @@ class UFOInvasion:
             sys.exit()
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
-        #elif event.key == pygame.K_SPACE:
-        #    self._fire_bullet()
     
     def _check_keyup_events(self, event):
         """repsond to key releases"""
@@ -209,7 +173,7 @@ class UFOInvasion:
         # the first version of this after that max bullets no bullets at all fire
         if len(self.bulletsGroup) < self.settings.bullets_allowed: 
             new_bullet = Bullet(self)
-            self.bulletsGroup.add(new_bullet) # new bullet group name hits me again. only took a few minutes to find though
+            self.bulletsGroup.add(new_bullet) 
             print(f"bulletgroup length is now {len(self.bulletsGroup)} (firebullet method)")
 
     def _update_bullets(self):
@@ -218,20 +182,17 @@ class UFOInvasion:
         self.bulletsGroup.update() # changed from "bullets" to "bulletsGroup"
         # get rid of bullets that have disappeared - re-adjusted for right side instead of bottom
         for bullet in self.bulletsGroup.copy(): # changed from "bullets" to "bulletsGroup"
-            # this has to changed to be right side of screen. so screen width
-#            if bullet.rect.right <= 0:
+
             if bullet.rect.right >= self.screen_rect.right:
                 self.bulletsGroup.remove(bullet) # changed from "bullets" to "bulletsGroup"
                 print(f"bulletgroup length is now {len(self.bulletsGroup)} (update bullets method)")
-        # this collisions = line will be replaced but I'm using it anyway to follow
-        # pg. 267
 
         self._check_bullet_alien_collisions()
 
 
 
 
-    def _check_bullet_alien_collisions(self): # this method added as part of refactoring starting on page 269
+    def _check_bullet_alien_collisions(self): 
         """respond to bullet-alien collisions"""
         #remove any bullets and aliens that have colided
         collisions = pygame.sprite.groupcollide( 
@@ -281,44 +242,12 @@ class UFOInvasion:
         # self.aliensGroup.add(new_alien)
         alien = Alien(self) # just creating first alien at that original position defined in alien.py
         alien_height = alien.rect.height # just the height of the alien so we have it for later
-        alien_width = alien.rect.width # alien.rect.width was used below for xpos anyway. i guess this just shortens it slightly
+        #alien_width = alien.rect.width # alien.rect.width was used below for xpos anyway. i guess this just shortens it slightly
         #alien_fleet_spacing = alien.rect.height * 2
         # I rcreated the self.settings.fleet_ship_spacing as a variable in settings.py
         # so i could easily adjust it like everything else - note: 10px might be too much
         self.screen_rect = self.screen.get_rect() # make rectangle out of dimensions of window
-        # these two lines create an initial x location: 
-        # (window width - 1200) - (width of alien rectangle, 58) - 20 = 1122 - if my numbers are right - 78px in from right
-        # I'm not sure xpos is even needed. just seems like too many variables to track
-        #alien.xpos = self.screen_rect.width - alien_width - 20
-        # the x of the alien rectangle is equal to the result of the xpos calculation
-                    #alien.rect.x = float(self.screen_rect.width - alien_width - 20) 
-                    #alien.x = alien.rect.x 
-        # now i'll do the height/y side of it
-        # the alien is as far down from the top of the window as the alien image is high
-        # since the alien is 58 pixels high, it'd be 58px down from the top
-        # setting rectangle first
-                    #alien.rect.y = alien.rect.height
-        # so the alien y coord is now the same as the y coord of the alien rectangle
-                    #alien.y = float(alien.rect.y) 
-                    #print(f"alien.y is now {alien.y} ")
-                    #print(f"alien.x is {alien.x}")
-        # for this first column x will be the same for all of them, it's only y that has to be 
-        # re-calculated
-# so the x of the alien should be 78px in from the right side of the screen
-# and the y of the alien as of now at least should be an height's worth of pixels down from the top of screen
-        # so current y takes that y position and implents that ship space
-        # although maybe that should be a plus?
-        
-        # I've decided I'm going to re-do have the intial x and y are formulated
-        # instead of doing it based on imaginary alien I'll just find a location and do it relative to that instead
-        # i could do the x calculation from within the _create_alien() method. that'd be the the intial x of the first alien
-        # then inside _create_alien() use grab the alien width. that seems like better idea
-        # i just need that initial alien to get the width of the alien image. i assume.
-        # so i could use the alien along with .right for the x. the right edge is at the screen width value in other words.
-        # then in _create_alien() 
-        
-#        current_y = alien.y - self.settings.fleet_ship_spacing 
-#        current_x = alien.x
+
         current_y = self.screen_rect.top# - alien.height
         current_x = self.screen_rect.right  - self.settings.fleet_ship_spacing
         
@@ -327,46 +256,15 @@ class UFOInvasion:
         
         alien.rect.x = current_x
         alien.x = current_x
-                    #print(f"current_y is {current_y} ")
-                    # this "debugging" while loop did produce the 4 aliens for the fleet, i can swap back other one 
-                    #i = 1
-                    #while i <= 9:
-                    #print(f"alien_height is now {alien_height} ")
-                    #print(f"current_y is {current_y} and self.settings.screen_height - (alien_height * 2)   is now {self.settings.screen_height - (alien_height * 2)  } ")
-                    # this should be the good while loop. changing it briefly for troubleshooting
-                    #      current y starts at 38 -  should be 800     height is 58 * 2 = 116 eg 800 - 116 = 644
-                    #print(f"alien.x - (alien_width * 3) is {alien.x - (alien_width * 3)}")
-                    #print(f"current_x is {current_x} ")
-                    #print(f"alien.x is {alien.x} ")
-                    #breakpoint()
-            #        while current_x < (self.settings.screen_width - (alien_width * 3) ):  # current_x defined above: float(self.screen_rect.width - alien_width - 20) 
 
-                    #print(f"self.settings.screen_width // 2 is {self.settings.screen_width // 2} ")
-        #breakpoint()
-        #i = 4
-        #while i > 0:
         alien_counter = 1
         while current_x >= float(self.settings.screen_width // 3) : #alien.x - (alien_width * 3):
-            #pass
             while current_y < ( self.settings.screen_height - (alien_height * 3)  ):
                 print(f"value of alien_counter is {alien_counter}")
-                # switching over to using _create_alien() method
-                #self._create_alien(current_y)
-                #my_alien = self._create_alien(self.settings.screen_height - (alien_height * 2))
-                #   first time through loop sending 38 to create alien method (as float)
+
                 my_alien = self._create_alien(current_y, current_x)
                 print(f"my_alien[0] is {my_alien[0]} and my_alien[1] is {my_alien[1]}")
-#print(f"my_alien[0] is {my_alien[0]}")
-                #print(f"my_alien.y is {my_alien.y}")
-                #my_alien.y
-    # now i'll re-assign current_y to value of the prior alien (subtract ship spacing)
-    # I've implmented this differently: create_alien returns it's rect.bottom 
-    # so this "should" spawn a new alien each time through the loop make current_y (add that alien bottom + ship spacing)
-    # and send that new current_y back into the create_ alien to repeat once more
-    # issue is apparently it's not retain the alien x each time through the loop so the x is upper right corner (or something?)
-    # - i ended up just making create_alien take in both x and y and defining x to send in to the create_alien
-    # this appears to have worked for alien one once again, now i'd like to produce 3 or 4 aliens as I did previously with
-    # the while loop before swapping back to conditions based on screen height nevermind adding in additional columns
+
                 current_y = my_alien[0] # 0 = my_alien bottom #+ self.settings.fleet_ship_spacing # inner while
                 alien_counter += 1
                 
@@ -376,15 +274,9 @@ class UFOInvasion:
             current_x = my_alien[1] # - (alien_width * 1.5) # - self.settings.fleet_ship_spacing  
 
             print(f"out while after changing current_x/y, current_x is {current_x} and current_y is {current_y}")
-            #breakpoint()
+
             
-# print(f"current_y with adding my alien and ship spacing is is now {current_y} ")
-                #breakpoint()
-                #print(f"self.settings.screen_heightis {self.settings.screen_height} ")
-                # third_alien.rect.y = sec_alien.rect.bottom + self.settings.fleet_ship_spacing 
-                #i += 1
-            #i -= 1
-                #break
+
 
     def _create_alien(self, current_y, current_x):
         """ Create an alien and place it in the row """
@@ -403,8 +295,7 @@ class UFOInvasion:
         
         print(f"inside alien_create, fleet_alien.y of fleet_alien is {fleet_alien.y} and fleet_alien.rect.y is {fleet_alien.rect.y}")
         print(f"inside alien_create, fleet_alien.x of fleet_alien is {fleet_alien.x} and fleet_alien.rect.x is {fleet_alien.rect.x}")
-        #print(f"fleet_alien.rect.y is {fleet_alien.rect.y}")
-        #breakpoint()
+
         self.aliensGroup.add(fleet_alien)
         # could I just return the fleet alien itself? so I can access the bottom and left sides
         # from other loop? or just return fleet_alien.rect?
@@ -412,7 +303,7 @@ class UFOInvasion:
         print(f"fleet_alien.rect.bottom is {fleet_alien.rect.bottom} and fleet_alien.rect.left is {fleet_alien.rect.left}")
         return fleet_alien.rect.bottom, fleet_alien.rect.left
     
-    #def _check_aliens_bottom(self):
+
     def _check_aliens_left(self): # all the way right == loss (instead of bottom)
         """check if any aliens have reached the right of the screen"""
         # added pg 273/4 to check if fleet has reached bottom of screen
@@ -443,9 +334,8 @@ class UFOInvasion:
     
     def _update_aliens(self):
         """update the positions of all aliens in the fleet"""
-                # for later - self._check_fleet_edges()
         self._check_fleet_edges()
-        #self.aliens.update() # <-- changed name of alien group to "aliensGroup" so i know what it is!
+
         self.aliensGroup.update()
         
 # spritecollideany - two arguments are a sprite and a sprite group: if the self.ship group collides with aliens group...hit
