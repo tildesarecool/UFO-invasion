@@ -9,7 +9,7 @@ Adaption (attempted?) of "Python Crash Course" chapter 12 to be horizontal shmup
  - 5th step: draw multiple columns of aliens via embedded while loops **completed**
    - make columns move incrementally to the left towards player **completed**
  - 6th step: bullets collide with aliens, elminating each one **completed**
- - 7th step: scoring system, tracking number of tries/game restarts left **completed**
+ - 7th step: scoring system, tracking number of tries/game restarts left
  - 8th step: a "click to play" button/pause button
 
 Stretch/dream/at the end goals:
@@ -23,25 +23,6 @@ Stretch/dream/at the end goals:
   - enemies fire bullets back at random
 
 ## The Good, Bad and/or Newest news
-
-Today I did something of a speedrun through chapter 14. I mean it took about 3 hours total but compared to the prior two chapters it was very quick.
-
-I've made my unnecessary back up copies of the scripts so now I can go in and take out redundant code and remove large chunk of the comments taking up so much space in the editing window.
-
-Then I'll have to figure out what enhancement I want to do next. A title screen and pushing a key for pause would be the most obvious. Alongside a settings menu and if nothing else being able to choose between controls (arrow keys versus AWSD).
-
-I have a lot of ideas but relatively little on the part where I know how to implement them and in what order. I know sound/music would come in eventually for instance but at this moment I don't know how to implement that.
-
-Part of me wants to use this version of the reference and start over from scratch implementing things like menus and music from a much earlier phase.
-
-First though I'll probably do some experimenting with pygame like writing shapes to the screen and seeing if i can get user input to show up as its typed on the screen. I may just use the all-purpose "really had to python" repository for that if anybody cared enough to follow.
-
-
-
----
-
-
-## Old news
 
 
 I've officially reached the end of chapter 13. This means The only thing left include things like buttons for the pause menu, the pause functionality, a Title screen with a start button, tracking the player score and high scores and resetting upon player losing all lives. Still necessary to be a "real" game but as it plays now it is technically a "game".
@@ -58,10 +39,10 @@ I've actually started a "project" through github associated with this repo. I ha
 
 I'm planning more enhancements once I get through chapter 14.
 
-
 ---
 
 
+## Old news
 
 
 After many, many more iterations and I don't know how many hours of work I managed to get a column aliens to ship as the "fleet". This was done with the fleet and create alien methods. I was still using an invisible spawned alien for the task though.
